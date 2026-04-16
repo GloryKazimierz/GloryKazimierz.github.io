@@ -3,19 +3,25 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Wang Che | Graphics & Rendering Portfolio</title>
+  <title>Wang Che | Graphics, Rendering, and Interactive Learning</title>
   <style>
     :root {
-      --bg: #070b14;
-      --bg2: #0d1224;
-      --panel: rgba(16, 24, 42, 0.72);
-      --panel-strong: rgba(16, 24, 42, 0.92);
-      --text: #eaf2ff;
-      --muted: #aebbd6;
-      --accent: #53b7ff;
-      --accent2: #8c5bff;
+      --bg-0: #04070d;
+      --bg-1: #08111f;
+      --bg-2: #0b1630;
+      --panel: rgba(13, 20, 38, 0.78);
+      --panel-strong: rgba(10, 16, 30, 0.92);
       --line: rgba(255, 255, 255, 0.08);
-      --glow: 0 0 14px rgba(83, 183, 255, 0.35), 0 0 32px rgba(140, 91, 255, 0.18);
+      --text: #eef4ff;
+      --muted: #aab7d3;
+      --cyan: #56c7ff;
+      --blue: #5d8cff;
+      --violet: #9b63ff;
+      --mint: #52ffd9;
+      --glow-cyan: 0 0 14px rgba(86, 199, 255, 0.34), 0 0 36px rgba(86, 199, 255, 0.12);
+      --glow-violet: 0 0 14px rgba(155, 99, 255, 0.28), 0 0 34px rgba(155, 99, 255, 0.12);
+      --shadow: 0 18px 48px rgba(0, 0, 0, 0.34);
+      --radius: 20px;
     }
 
     * {
@@ -25,16 +31,20 @@
       scroll-behavior: smooth;
     }
 
+    html, body {
+      overflow-x: hidden;
+    }
+
     body {
       font-family: Arial, Helvetica, sans-serif;
       color: var(--text);
       background:
-        radial-gradient(circle at 20% 20%, rgba(83, 183, 255, 0.14), transparent 25%),
-        radial-gradient(circle at 80% 10%, rgba(140, 91, 255, 0.15), transparent 25%),
-        radial-gradient(circle at 50% 80%, rgba(0, 255, 200, 0.08), transparent 30%),
-        linear-gradient(180deg, #060910 0%, #09111d 45%, #060910 100%);
-      line-height: 1.6;
-      overflow-x: hidden;
+        radial-gradient(circle at 12% 18%, rgba(86, 199, 255, 0.14), transparent 20%),
+        radial-gradient(circle at 86% 10%, rgba(155, 99, 255, 0.18), transparent 22%),
+        radial-gradient(circle at 60% 72%, rgba(82, 255, 217, 0.10), transparent 20%),
+        linear-gradient(180deg, var(--bg-0) 0%, var(--bg-1) 35%, var(--bg-2) 70%, var(--bg-0) 100%);
+      line-height: 1.65;
+      position: relative;
     }
 
     body::before {
@@ -42,36 +52,69 @@
       position: fixed;
       inset: 0;
       background-image:
-        linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
-      background-size: 36px 36px;
+        linear-gradient(rgba(255,255,255,0.028) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.028) 1px, transparent 1px);
+      background-size: 34px 34px;
+      opacity: 0.42;
       pointer-events: none;
-      opacity: 0.35;
+      z-index: -2;
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background:
+        repeating-linear-gradient(
+          to bottom,
+          rgba(255,255,255,0.018) 0px,
+          rgba(255,255,255,0.018) 1px,
+          transparent 2px,
+          transparent 4px
+        );
+      opacity: 0.18;
+      pointer-events: none;
       z-index: -1;
     }
 
     a {
-      color: inherit;
       text-decoration: none;
+      color: inherit;
     }
 
     img {
-      max-width: 100%;
       display: block;
+      max-width: 100%;
     }
 
     .container {
-      width: min(1120px, 92%);
+      width: min(1160px, 92%);
       margin: 0 auto;
+    }
+
+    .section {
+      padding: 88px 0;
+      position: relative;
+    }
+
+    .section::before {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 0;
+      transform: translateX(-50%);
+      width: min(1160px, 92%);
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.10), transparent);
     }
 
     header {
       position: sticky;
       top: 0;
       z-index: 1000;
-      backdrop-filter: blur(14px);
-      background: rgba(7, 11, 20, 0.72);
-      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(16px);
+      background: rgba(4, 7, 13, 0.72);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
     }
 
     .nav {
@@ -79,31 +122,35 @@
       justify-content: space-between;
       align-items: center;
       padding: 18px 0;
+      gap: 20px;
     }
 
     .logo {
-      font-size: 1.25rem;
+      font-size: 1.2rem;
       font-weight: 700;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
       color: #ffffff;
-      text-shadow: 0 0 10px rgba(83,183,255,0.35);
+      text-shadow: var(--glow-cyan);
+      white-space: nowrap;
     }
 
     .nav-links {
       display: flex;
-      gap: 24px;
       flex-wrap: wrap;
+      gap: 24px;
     }
 
     .nav-links a {
       color: var(--muted);
-      transition: 0.2s ease;
+      font-size: 0.97rem;
       position: relative;
+      transition: 0.25s ease;
     }
 
     .nav-links a:hover {
       color: #fff;
+      text-shadow: 0 0 10px rgba(86,199,255,0.22);
     }
 
     .nav-links a::after {
@@ -113,9 +160,10 @@
       bottom: -6px;
       width: 0%;
       height: 2px;
-      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--cyan), var(--violet));
       transition: 0.25s ease;
-      box-shadow: var(--glow);
+      box-shadow: var(--glow-cyan);
     }
 
     .nav-links a:hover::after {
@@ -123,39 +171,99 @@
     }
 
     .hero {
-      padding: 110px 0 90px;
+      min-height: 92vh;
+      display: flex;
+      align-items: center;
       position: relative;
+      padding: 92px 0 64px;
       overflow: hidden;
+    }
+
+    .hero-bg-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(28px);
+      pointer-events: none;
+      opacity: 0.65;
+      animation: floatGlow 6s ease-in-out infinite alternate;
+    }
+
+    .orb-1 {
+      width: 320px;
+      height: 320px;
+      background: radial-gradient(circle, rgba(86,199,255,0.24), transparent 65%);
+      left: -80px;
+      top: 80px;
+    }
+
+    .orb-2 {
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle, rgba(155,99,255,0.22), transparent 65%);
+      right: -40px;
+      top: 40px;
+      animation-delay: 1s;
+    }
+
+    .orb-3 {
+      width: 260px;
+      height: 260px;
+      background: radial-gradient(circle, rgba(82,255,217,0.14), transparent 65%);
+      right: 18%;
+      bottom: 10%;
+      animation-delay: 2s;
+    }
+
+    @keyframes floatGlow {
+      from {
+        transform: translateY(0px) translateX(0px) scale(1);
+      }
+      to {
+        transform: translateY(-18px) translateX(12px) scale(1.04);
+      }
     }
 
     .hero-grid {
       display: grid;
-      grid-template-columns: 1.2fr 0.8fr;
-      gap: 42px;
+      grid-template-columns: 1.18fr 0.82fr;
+      gap: 34px;
       align-items: center;
+      position: relative;
+      z-index: 1;
     }
 
-    .hero-kicker {
-      display: inline-block;
-      color: #9fdcff;
-      border: 1px solid rgba(83,183,255,0.26);
-      background: rgba(83,183,255,0.08);
-      padding: 6px 12px;
+    .kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 7px 14px;
       border-radius: 999px;
-      margin-bottom: 18px;
+      background: rgba(86,199,255,0.07);
+      border: 1px solid rgba(86,199,255,0.20);
+      color: #bfeaff;
       font-size: 0.95rem;
-      box-shadow: 0 0 12px rgba(83,183,255,0.12);
+      margin-bottom: 20px;
+      box-shadow: 0 0 18px rgba(86,199,255,0.08);
+    }
+
+    .kicker::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--mint);
+      box-shadow: 0 0 10px rgba(82,255,217,0.8);
     }
 
     .hero h1 {
-      font-size: 3.35rem;
-      line-height: 1.08;
+      font-size: 4rem;
+      line-height: 1.05;
       margin-bottom: 18px;
-      text-shadow: 0 0 24px rgba(83,183,255,0.18);
+      letter-spacing: -0.03em;
     }
 
-    .hero h1 span {
-      background: linear-gradient(90deg, #ffffff 10%, #82d7ff 50%, #b99cff 100%);
+    .hero h1 .gradient {
+      background: linear-gradient(90deg, #ffffff 5%, #8ee0ff 42%, #b59aff 82%, #ffffff 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
@@ -177,17 +285,17 @@
     .tag {
       padding: 8px 14px;
       border-radius: 999px;
+      font-size: 0.92rem;
+      color: #dce7ff;
       background: rgba(255,255,255,0.05);
-      color: #dce8ff;
       border: 1px solid rgba(255,255,255,0.08);
-      font-size: 0.93rem;
-      transition: 0.2s ease;
+      transition: 0.25s ease;
     }
 
     .tag:hover {
-      border-color: rgba(83,183,255,0.3);
-      box-shadow: 0 0 14px rgba(83,183,255,0.16);
       transform: translateY(-2px);
+      border-color: rgba(86,199,255,0.26);
+      box-shadow: 0 0 16px rgba(86,199,255,0.10);
     }
 
     .hero-buttons {
@@ -199,154 +307,247 @@
     .btn {
       display: inline-block;
       padding: 13px 20px;
-      border-radius: 12px;
+      border-radius: 14px;
       font-weight: 700;
       transition: 0.25s ease;
       letter-spacing: 0.02em;
     }
 
     .btn-primary {
-      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      background: linear-gradient(90deg, var(--cyan), var(--blue), var(--violet));
       color: white;
-      box-shadow: var(--glow);
+      box-shadow: var(--glow-cyan), var(--glow-violet);
     }
 
     .btn-primary:hover {
-      transform: translateY(-3px) scale(1.01);
-      box-shadow: 0 0 22px rgba(83, 183, 255, 0.4), 0 0 38px rgba(140, 91, 255, 0.25);
+      transform: translateY(-3px) scale(1.015);
     }
 
     .btn-secondary {
-      border: 1px solid rgba(255,255,255,0.12);
       background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.12);
       color: var(--text);
     }
 
     .btn-secondary:hover {
       transform: translateY(-3px);
-      border-color: rgba(83,183,255,0.32);
-      box-shadow: 0 0 16px rgba(83,183,255,0.14);
+      border-color: rgba(86,199,255,0.22);
+      box-shadow: 0 0 18px rgba(86,199,255,0.10);
     }
 
-    .hero-panel {
-      background: linear-gradient(180deg, rgba(23, 32, 58, 0.72), rgba(10, 15, 28, 0.85));
+    .hero-stack {
+      display: grid;
+      gap: 18px;
+    }
+
+    .display-panel {
+      background:
+        linear-gradient(180deg, rgba(18, 27, 48, 0.82), rgba(8, 13, 26, 0.94));
       border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 22px;
-      padding: 28px;
-      box-shadow: 0 18px 50px rgba(0,0,0,0.35);
-      position: relative;
+      border-radius: 24px;
       overflow: hidden;
+      box-shadow: var(--shadow);
+      position: relative;
     }
 
-    .hero-panel::before {
+    .display-panel::before {
       content: "";
       position: absolute;
-      inset: -20% auto auto -30%;
-      width: 220px;
-      height: 220px;
-      background: radial-gradient(circle, rgba(83,183,255,0.28), transparent 60%);
-      filter: blur(10px);
+      inset: 0;
+      background:
+        radial-gradient(circle at top left, rgba(86,199,255,0.14), transparent 28%),
+        radial-gradient(circle at bottom right, rgba(155,99,255,0.14), transparent 28%);
       pointer-events: none;
     }
 
-    .hero-panel h3 {
-      font-size: 1.1rem;
+    .panel-topbar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 18px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.03);
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.20);
+    }
+
+    .dot.cyan { background: #5ccaff; box-shadow: 0 0 10px rgba(92,202,255,0.8); }
+    .dot.violet { background: #9a63ff; box-shadow: 0 0 10px rgba(154,99,255,0.8); }
+    .dot.mint { background: #52ffd9; box-shadow: 0 0 10px rgba(82,255,217,0.8); }
+
+    .panel-body {
+      padding: 22px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .panel-title {
+      font-size: 1.04rem;
+      font-weight: 700;
       margin-bottom: 14px;
       color: #ffffff;
     }
 
-    .hero-panel p {
-      margin-bottom: 10px;
+    .scan-text {
+      font-family: "Courier New", monospace;
+      color: #9edfff;
+      font-size: 0.95rem;
+      margin-bottom: 8px;
+      letter-spacing: 0.03em;
+    }
+
+    .mini-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+    }
+
+    .mini-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+      padding: 16px;
+      transition: 0.25s ease;
+    }
+
+    .mini-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(86,199,255,0.22);
+      box-shadow: 0 0 16px rgba(86,199,255,0.08);
+    }
+
+    .mini-card h4 {
+      font-size: 0.95rem;
+      margin-bottom: 8px;
+      color: #fff;
+    }
+
+    .mini-card p {
+      font-size: 0.92rem;
       color: var(--muted);
     }
 
-    .scan {
-      font-family: "Courier New", monospace;
-      color: #9ee0ff;
-      font-size: 0.96rem;
-      letter-spacing: 0.04em;
-    }
-
-    section {
-      padding: 82px 0;
-    }
-
     .section-title {
-      font-size: 2rem;
+      font-size: 2.2rem;
       margin-bottom: 10px;
+      letter-spacing: -0.02em;
     }
 
     .section-title span {
-      color: #9dd7ff;
-      text-shadow: 0 0 12px rgba(83,183,255,0.2);
+      color: #a8e5ff;
+      text-shadow: var(--glow-cyan);
     }
 
     .section-subtitle {
       color: var(--muted);
-      margin-bottom: 34px;
       max-width: 760px;
+      margin-bottom: 34px;
+      font-size: 1rem;
     }
 
-    .about-grid {
+    .about-grid,
+    .philosophy-grid,
+    .contact-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 24px;
+      gap: 22px;
+      grid-template-columns: repeat(3, 1fr);
     }
 
-    .panel {
+    .about-grid.two {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .glass-card {
       background: var(--panel);
-      border: 1px solid var(--line);
-      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--radius);
       padding: 24px;
-      backdrop-filter: blur(10px);
+      backdrop-filter: blur(12px);
+      box-shadow: var(--shadow);
       transition: 0.25s ease;
+      position: relative;
+      overflow: hidden;
     }
 
-    .panel:hover {
-      transform: translateY(-4px);
-      border-color: rgba(83,183,255,0.25);
-      box-shadow: 0 0 20px rgba(83,183,255,0.08);
+    .glass-card::before {
+      content: "";
+      position: absolute;
+      inset: auto -20% -50% auto;
+      width: 180px;
+      height: 180px;
+      background: radial-gradient(circle, rgba(86,199,255,0.10), transparent 60%);
+      pointer-events: none;
     }
 
-    .panel h3 {
-      margin-bottom: 14px;
-      font-size: 1.15rem;
-      color: #fff;
+    .glass-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(86,199,255,0.24);
+      box-shadow: 0 0 18px rgba(86,199,255,0.08), 0 18px 48px rgba(0,0,0,0.34);
     }
 
-    .panel p {
-      color: var(--muted);
+    .glass-card h3 {
+      font-size: 1.12rem;
       margin-bottom: 12px;
-    }
-
-    .skills-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 18px;
-      margin-top: 26px;
-    }
-
-    .skill-card {
-      background: rgba(255,255,255,0.04);
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      padding: 18px;
-      text-align: center;
-      transition: 0.25s ease;
-    }
-
-    .skill-card:hover {
-      transform: translateY(-4px);
-      border-color: rgba(83,183,255,0.25);
-      box-shadow: 0 0 18px rgba(83,183,255,0.12);
-    }
-
-    .skill-card h4 {
-      margin-bottom: 8px;
       color: #ffffff;
     }
 
-    .skill-card p {
+    .glass-card p {
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+
+    .tech-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+      margin-top: 30px;
+    }
+
+    .tech-card {
+      background: linear-gradient(180deg, rgba(17,24,41,0.85), rgba(8,13,25,0.95));
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 18px;
+      padding: 20px;
+      text-align: center;
+      transition: 0.25s ease;
+      box-shadow: var(--shadow);
+    }
+
+    .tech-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(86,199,255,0.24);
+      box-shadow: 0 0 20px rgba(86,199,255,0.10), 0 18px 38px rgba(0,0,0,0.28);
+    }
+
+    .tech-icon {
+      width: 62px;
+      height: 62px;
+      margin: 0 auto 14px;
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      font-weight: 700;
+      font-size: 1rem;
+      color: #fff;
+      background:
+        linear-gradient(135deg, rgba(86,199,255,0.20), rgba(155,99,255,0.16)),
+        rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.10);
+      box-shadow: var(--glow-cyan);
+    }
+
+    .tech-card h4 {
+      color: #ffffff;
+      margin-bottom: 8px;
+      font-size: 1rem;
+    }
+
+    .tech-card p {
       color: var(--muted);
       font-size: 0.92rem;
     }
@@ -358,46 +559,73 @@
     }
 
     .project-card {
-      background: linear-gradient(180deg, rgba(17, 24, 41, 0.84), rgba(10, 15, 28, 0.96));
+      background: linear-gradient(180deg, rgba(14, 21, 38, 0.88), rgba(7, 11, 20, 0.96));
       border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 20px;
+      border-radius: 22px;
       overflow: hidden;
       transition: 0.28s ease;
-      box-shadow: 0 12px 30px rgba(0,0,0,0.24);
+      box-shadow: var(--shadow);
       position: relative;
     }
 
     .project-card:hover {
       transform: translateY(-8px);
-      border-color: rgba(83,183,255,0.28);
-      box-shadow: 0 0 18px rgba(83,183,255,0.12), 0 18px 38px rgba(0,0,0,0.28);
+      border-color: rgba(86,199,255,0.24);
+      box-shadow: 0 0 22px rgba(86,199,255,0.10), 0 22px 50px rgba(0,0,0,0.34);
     }
 
-    .project-image {
-      width: 100%;
-      height: 220px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 20px;
-      color: #9bb2d8;
-      background:
-        linear-gradient(135deg, rgba(83,183,255,0.14), rgba(140,91,255,0.10)),
-        linear-gradient(160deg, #121b31, #0a101d);
+    .project-visual {
+      height: 230px;
+      padding: 18px;
       border-bottom: 1px solid rgba(255,255,255,0.08);
       position: relative;
+      display: flex;
+      align-items: flex-end;
+      justify-content: flex-start;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at top left, rgba(86,199,255,0.14), transparent 26%),
+        radial-gradient(circle at bottom right, rgba(155,99,255,0.16), transparent 28%),
+        linear-gradient(160deg, #10192e, #08101d 65%, #060b13 100%);
     }
 
-    .project-image::before {
+    .project-visual::before {
       content: "";
       position: absolute;
       inset: 0;
-      background:
+      background-image:
         linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
         linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
-      background-size: 28px 28px;
-      opacity: 0.5;
+      background-size: 26px 26px;
+      opacity: 0.45;
+    }
+
+    .shader-lines {
+      position: absolute;
+      inset: auto 0 0 0;
+      height: 80px;
+      background:
+        linear-gradient(180deg, transparent, rgba(86,199,255,0.05)),
+        repeating-linear-gradient(
+          120deg,
+          rgba(86,199,255,0.0) 0px,
+          rgba(86,199,255,0.0) 16px,
+          rgba(86,199,255,0.14) 17px,
+          rgba(86,199,255,0.0) 19px
+        );
+      pointer-events: none;
+    }
+
+    .project-badge {
+      position: relative;
+      z-index: 1;
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-size: 0.9rem;
+      color: #dff4ff;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.10);
+      box-shadow: var(--glow-cyan);
     }
 
     .project-content {
@@ -405,15 +633,15 @@
     }
 
     .project-content h3 {
+      font-size: 1.18rem;
       margin-bottom: 10px;
       color: #fff;
-      font-size: 1.2rem;
     }
 
     .project-content p {
       color: var(--muted);
       margin-bottom: 14px;
-      min-height: 120px;
+      min-height: 118px;
     }
 
     .small-tags {
@@ -427,44 +655,25 @@
       padding: 6px 10px;
       border-radius: 999px;
       font-size: 0.84rem;
-      color: #d8ebff;
-      background: rgba(83,183,255,0.10);
-      border: 1px solid rgba(83,183,255,0.14);
+      color: #dcecff;
+      background: rgba(86,199,255,0.10);
+      border: 1px solid rgba(86,199,255,0.15);
     }
 
     .project-link {
-      color: #9fdcff;
+      color: #aee7ff;
       font-weight: 700;
+      transition: 0.2s ease;
     }
 
     .project-link:hover {
       color: #fff;
-      text-shadow: 0 0 10px rgba(83,183,255,0.35);
-    }
-
-    .contact-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
-    }
-
-    .contact-card {
-      background: var(--panel);
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      padding: 22px;
-      transition: 0.25s ease;
-    }
-
-    .contact-card:hover {
-      transform: translateY(-4px);
-      border-color: rgba(83,183,255,0.28);
-      box-shadow: 0 0 18px rgba(83,183,255,0.1);
+      text-shadow: 0 0 12px rgba(86,199,255,0.34);
     }
 
     .contact-card h4 {
-      margin-bottom: 8px;
       color: #fff;
+      margin-bottom: 8px;
     }
 
     .contact-card p,
@@ -473,43 +682,52 @@
       word-break: break-word;
     }
 
-    footer {
-      border-top: 1px solid rgba(255,255,255,0.08);
-      padding: 26px 0 36px;
-      color: #8d9ab5;
-      text-align: center;
+    .contact-card a:hover {
+      color: #ffffff;
+      text-shadow: 0 0 10px rgba(86,199,255,0.24);
     }
 
-    @media (max-width: 980px) {
+    footer {
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding: 26px 0 40px;
+      color: #8997b3;
+      text-align: center;
+      background: rgba(0,0,0,0.16);
+    }
+
+    @media (max-width: 1024px) {
       .hero-grid,
       .about-grid,
+      .about-grid.two,
+      .philosophy-grid,
       .projects-grid,
       .contact-grid,
-      .skills-grid {
+      .tech-grid {
         grid-template-columns: 1fr;
       }
 
       .hero h1 {
-        font-size: 2.55rem;
+        font-size: 2.8rem;
       }
     }
 
     @media (max-width: 640px) {
       .nav {
         flex-direction: column;
-        gap: 14px;
+        align-items: flex-start;
       }
 
       .nav-links {
-        justify-content: center;
+        gap: 16px;
       }
 
       .hero {
-        padding: 78px 0 64px;
+        min-height: auto;
+        padding-top: 74px;
       }
 
       .hero h1 {
-        font-size: 2rem;
+        font-size: 2.2rem;
       }
     }
   </style>
@@ -521,7 +739,9 @@
       <nav class="nav-links">
         <a href="#home">Home</a>
         <a href="#about">About</a>
+        <a href="#focus">Focus</a>
         <a href="#projects">Projects</a>
+        <a href="#philosophy">Learning</a>
         <a href="#contact">Contact</a>
       </nav>
     </div>
@@ -529,99 +749,140 @@
 
   <main>
     <section class="hero" id="home">
+      <div class="hero-bg-orb orb-1"></div>
+      <div class="hero-bg-orb orb-2"></div>
+      <div class="hero-bg-orb orb-3"></div>
+
       <div class="container hero-grid">
         <div>
-          <div class="hero-kicker">Graphics / Rendering / Game Tech</div>
-          <h1>Hi, I’m <span>Wang Che</span></h1>
+          <div class="kicker">Graphics / Rendering / Shader Exploration</div>
+          <h1>
+            Hi, I’m <span class="gradient">Wang Che</span>
+          </h1>
           <p>
             I am a Computer Science student at Rutgers University with a strong interest in
             computer graphics, rendering, shader programming, and low-level graphics systems.
-            I enjoy learning graphics from the ground up and building my understanding through
-            OpenGL, rendering pipelines, and hands-on projects.
+            I enjoy learning from the ground up, turning technical curiosity into visual and
+            interactive graphics work through OpenGL, rendering pipelines, and future engine-oriented projects.
           </p>
 
           <div class="tag-row">
             <span class="tag">Rutgers University</span>
             <span class="tag">Computer Graphics</span>
             <span class="tag">OpenGL</span>
-            <span class="tag">Shaders</span>
+            <span class="tag">Shader Programming</span>
             <span class="tag">Vulkan</span>
             <span class="tag">Minecraft Shaders</span>
           </div>
 
           <div class="hero-buttons">
-            <a class="btn btn-primary" href="#projects">View Projects</a>
-            <a class="btn btn-secondary" href="#contact">Contact Me</a>
+            <a class="btn btn-primary" href="#projects">Explore Projects</a>
+            <a class="btn btn-secondary" href="#contact">Get in Touch</a>
           </div>
         </div>
 
-        <div class="hero-panel">
-          <h3>Personal Profile</h3>
-          <p class="scan">> School: Rutgers University</p>
-          <p class="scan">> Major: Computer Science</p>
-          <p class="scan">> Focus: Rendering, OpenGL, GLSL, graphics fundamentals</p>
-          <p class="scan">> Future direction: Vulkan, mini renderer, Minecraft shader development</p>
-          <p class="scan">> Learning style: bottom-up, implementation-driven</p>
+        <div class="hero-stack">
+          <div class="display-panel">
+            <div class="panel-topbar">
+              <span class="dot cyan"></span>
+              <span class="dot violet"></span>
+              <span class="dot mint"></span>
+            </div>
+            <div class="panel-body">
+              <div class="panel-title">Render Profile</div>
+              <div class="scan-text">> school: Rutgers University</div>
+              <div class="scan-text">> major: Computer Science</div>
+              <div class="scan-text">> focus: graphics fundamentals / OpenGL / shaders</div>
+              <div class="scan-text">> direction: Vulkan / mini renderer / game-tech style projects</div>
+              <div class="scan-text">> style: bottom-up learning, implementation-driven growth</div>
+            </div>
+          </div>
+
+          <div class="mini-grid">
+            <div class="mini-card">
+              <h4>Current Build Path</h4>
+              <p>OpenGL practice, shader experiments, and stronger graphics foundations.</p>
+            </div>
+            <div class="mini-card">
+              <h4>Long-Term Direction</h4>
+              <p>More advanced rendering work, Vulkan, and custom visual systems.</p>
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
-    <section id="about">
+    <section class="section" id="about">
       <div class="container">
         <h2 class="section-title">About <span>Me</span></h2>
         <p class="section-subtitle">
-          I enjoy building a deeper understanding of how graphics work under the hood,
-          from vertex data and shaders to rendering pipelines and visual effects.
+          I am most interested in understanding how interactive visual systems work under the hood,
+          from buffers and shaders to rendering structure, technical implementation, and visual output.
         </p>
 
-        <div class="about-grid">
-          <div class="panel">
+        <div class="about-grid two">
+          <div class="glass-card">
             <h3>Who I Am</h3>
             <p>
-              I am a Rutgers University Computer Science student who is especially interested in
-              computer graphics, real-time rendering, and shader-based visual work.
+              I am a Rutgers University Computer Science student with a strong interest in computer graphics,
+              rendering, and shader-based visual work.
             </p>
             <p>
-              Rather than only using high-level tools, I like understanding how things work
-              underneath — buffers, shader stages, draw calls, and the graphics pipeline.
+              I prefer learning from the bottom up. Instead of only relying on high-level engines or tools,
+              I like understanding what happens underneath, including data flow, shader logic, and graphics pipelines.
             </p>
           </div>
 
-          <div class="panel">
-            <h3>What Drives Me</h3>
+          <div class="glass-card">
+            <h3>What Motivates Me</h3>
             <p>
-              My goal is to build a strong foundation in graphics programming and gradually grow
-              toward larger rendering projects.
+              My goal is to build a strong graphics foundation and gradually grow toward more advanced rendering projects.
             </p>
             <p>
-              I am currently focused on OpenGL and shader practice, and in the future I want to explore
-              Vulkan, mini rendering engines, and custom Minecraft shader effects.
+              I am currently focused on OpenGL practice, and I want to keep moving toward Vulkan, mini renderer ideas,
+              and more visually expressive shader projects.
             </p>
-          </div>
-        </div>
-
-        <div class="skills-grid">
-          <div class="skill-card">
-            <h4>OpenGL</h4>
-            <p>Learning rendering basics through C++, GLFW, GLAD, and shader programming.</p>
-          </div>
-          <div class="skill-card">
-            <h4>GLSL</h4>
-            <p>Experimenting with vertex and fragment shaders, color, and rendering effects.</p>
-          </div>
-          <div class="skill-card">
-            <h4>C++</h4>
-            <p>Using C++ to build graphics programs and understand low-level behavior.</p>
-          </div>
-          <div class="skill-card">
-            <h4>Future Vulkan</h4>
-            <p>Interested in lower-level graphics APIs and more advanced rendering systems.</p>
           </div>
         </div>
       </div>
     </section>
 
-    <section id="projects">
+    <section class="section" id="focus">
+      <div class="container">
+        <h2 class="section-title">Technical <span>Focus</span></h2>
+        <p class="section-subtitle">
+          Areas I am actively building through study, experimentation, and project work.
+        </p>
+
+        <div class="tech-grid">
+          <div class="tech-card">
+            <div class="tech-icon">GL</div>
+            <h4>OpenGL</h4>
+            <p>Building rendering fundamentals through C++, GLFW, GLAD, and graphics programming practice.</p>
+          </div>
+
+          <div class="tech-card">
+            <div class="tech-icon">SL</div>
+            <h4>Shaders</h4>
+            <p>Exploring vertex and fragment shaders, color flow, and visual experimentation through GLSL.</p>
+          </div>
+
+          <div class="tech-card">
+            <div class="tech-icon">C++</div>
+            <h4>C++</h4>
+            <p>Using C++ to understand lower-level behavior and support graphics-oriented implementation work.</p>
+          </div>
+
+          <div class="tech-card">
+            <div class="tech-icon">VK</div>
+            <h4>Future Vulkan</h4>
+            <p>Interested in deeper graphics systems, explicit control, and more advanced rendering architecture.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="projects">
       <div class="container">
         <h2 class="section-title">Selected <span>Projects</span></h2>
         <p class="section-subtitle">
@@ -630,15 +891,16 @@
 
         <div class="projects-grid">
           <article class="project-card">
-            <!-- 你可以把这里换成自己的截图 -->
-            <!-- 示例: <img class="project-image" src="images/opengl-project.png" alt="OpenGL project screenshot"> -->
-            <div class="project-image">Add your OpenGL screenshot here</div>
+            <div class="project-visual">
+              <div class="project-badge">OpenGL Project</div>
+              <div class="shader-lines"></div>
+            </div>
             <div class="project-content">
               <h3>OpenGL Practice</h3>
               <p>
-                A C++ OpenGL learning project using GLFW and GLAD. This project reflects my current
-                focus on graphics fundamentals, including triangle rendering, shader programming,
-                wireframe mode, textures, blending, and depth testing.
+                A C++ OpenGL learning project using GLFW and GLAD. This work reflects my current focus on
+                graphics fundamentals, including triangle rendering, shader programming, textures, blending,
+                and depth testing.
               </p>
 
               <div class="small-tags">
@@ -655,13 +917,16 @@
           </article>
 
           <article class="project-card">
-            <div class="project-image">Future Vulkan renderer project</div>
+            <div class="project-visual">
+              <div class="project-badge">Future Renderer</div>
+              <div class="shader-lines"></div>
+            </div>
             <div class="project-content">
               <h3>Future Vulkan Renderer</h3>
               <p>
                 I want to move beyond OpenGL into lower-level rendering work.
                 This future project represents my interest in modern graphics systems,
-                explicit control, and building a stronger rendering foundation.
+                more explicit control, and a stronger rendering-oriented portfolio.
               </p>
 
               <div class="small-tags">
@@ -675,12 +940,15 @@
           </article>
 
           <article class="project-card">
-            <div class="project-image">Minecraft shader project</div>
+            <div class="project-visual">
+              <div class="project-badge">Shader Exploration</div>
+              <div class="shader-lines"></div>
+            </div>
             <div class="project-content">
               <h3>Minecraft Shader Project</h3>
               <p>
                 I am also interested in creating custom Minecraft shader effects.
-                This project connects my graphics learning with lighting, atmosphere,
+                This project connects graphics learning with lighting, atmosphere,
                 post-processing, and visual experimentation in a game context.
               </p>
 
@@ -697,7 +965,84 @@
       </div>
     </section>
 
-    <section id="contact">
+    <section class="section" id="philosophy">
+      <div class="container">
+        <h2 class="section-title">Learning <span>Philosophy</span></h2>
+        <p class="section-subtitle">
+          A few personal ideas that shape how I learn, collaborate, and build technical understanding.
+        </p>
+
+        <div class="philosophy-grid">
+          <div class="glass-card">
+            <h3>Constructivist Preference</h3>
+            <p>
+              I personally prefer a constructivist learning approach because it encourages active engagement,
+              exploration, and critical thinking.
+            </p>
+            <p>
+              At the same time, I see real value in blending multiple learning theories instead of relying on just one.
+            </p>
+          </div>
+
+          <div class="glass-card">
+            <h3>Cognition and Higher Education</h3>
+            <p>
+              I believe a combination of constructivism and cognitivism works especially well in higher education.
+            </p>
+            <p>
+              For me, good learning is not only about doing, but also about organizing knowledge, building mental models,
+              and understanding why systems work.
+            </p>
+          </div>
+
+          <div class="glass-card">
+            <h3>Growth Through Different Stages</h3>
+            <p>
+              Looking back, I feel my K-12 learning experience was shaped by both behaviorism and constructivism.
+            </p>
+            <p>
+              Behaviorism felt more visible in elementary school, while middle and high school brought in more
+              independence, discussion, and active knowledge building.
+            </p>
+          </div>
+
+          <div class="glass-card">
+            <h3>Online and Blended Learning</h3>
+            <p>
+              I have experience with online or blended learning courses at Rutgers and similar academic settings.
+            </p>
+            <p>
+              I believe meaningful student learning can be supported online when structure, communication,
+              and collaboration are thoughtfully designed.
+            </p>
+          </div>
+
+          <div class="glass-card">
+            <h3>Technology Literacy and Collaboration</h3>
+            <p>
+              I previously participated in activities connected to the Technology Literacy section,
+              especially work involving collaborative digital tools for accessing, recording, and sharing viewpoints.
+            </p>
+            <p>
+              That experience strengthened my interest in learning environments that are interactive and tool-supported.
+            </p>
+          </div>
+
+          <div class="glass-card">
+            <h3>Digital Learning Tools</h3>
+            <p>
+              I believe Technology Literacy learning can be fully supported online through tools such as Zoom,
+              Google Workspace, Microsoft tools, and Discord.
+            </p>
+            <p>
+              These platforms can make communication, collaboration, and shared problem-solving much more accessible.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="contact">
       <div class="container">
         <h2 class="section-title">Contact <span>Info</span></h2>
         <p class="section-subtitle">
@@ -705,19 +1050,19 @@
         </p>
 
         <div class="contact-grid">
-          <div class="contact-card">
+          <div class="glass-card contact-card">
             <h4>Email</h4>
             <a href="mailto:wang1610909540@gmail.com">wang1610909540@gmail.com</a>
           </div>
 
-          <div class="contact-card">
+          <div class="glass-card contact-card">
             <h4>LinkedIn</h4>
             <a href="https://www.linkedin.com/in/澈-王-143a95293" target="_blank">
               www.linkedin.com/in/澈-王-143a95293
             </a>
           </div>
 
-          <div class="contact-card">
+          <div class="glass-card contact-card">
             <h4>GitHub</h4>
             <a href="https://github.com/GloryKazimierz" target="_blank">
               github.com/GloryKazimierz
@@ -730,7 +1075,7 @@
 
   <footer>
     <div class="container">
-      <p>© 2026 Wang Che — Built with interest in graphics, rendering, and game technology.</p>
+      <p>© 2026 Wang Che — Built around graphics, rendering, shader exploration, and thoughtful interactive learning.</p>
     </div>
   </footer>
 </body>
