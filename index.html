@@ -3,8 +3,21 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Wang Che | Computer Graphics Portfolio</title>
+  <title>Wang Che | Graphics & Rendering Portfolio</title>
   <style>
+    :root {
+      --bg: #070b14;
+      --bg2: #0d1224;
+      --panel: rgba(16, 24, 42, 0.72);
+      --panel-strong: rgba(16, 24, 42, 0.92);
+      --text: #eaf2ff;
+      --muted: #aebbd6;
+      --accent: #53b7ff;
+      --accent2: #8c5bff;
+      --line: rgba(255, 255, 255, 0.08);
+      --glow: 0 0 14px rgba(83, 183, 255, 0.35), 0 0 32px rgba(140, 91, 255, 0.18);
+    }
+
     * {
       box-sizing: border-box;
       margin: 0;
@@ -14,9 +27,27 @@
 
     body {
       font-family: Arial, Helvetica, sans-serif;
-      background: #0b1020;
-      color: #e8edf7;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 20% 20%, rgba(83, 183, 255, 0.14), transparent 25%),
+        radial-gradient(circle at 80% 10%, rgba(140, 91, 255, 0.15), transparent 25%),
+        radial-gradient(circle at 50% 80%, rgba(0, 255, 200, 0.08), transparent 30%),
+        linear-gradient(180deg, #060910 0%, #09111d 45%, #060910 100%);
       line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
+      background-size: 36px 36px;
+      pointer-events: none;
+      opacity: 0.35;
+      z-index: -1;
     }
 
     a {
@@ -30,7 +61,7 @@
     }
 
     .container {
-      width: min(1100px, 92%);
+      width: min(1120px, 92%);
       margin: 0 auto;
     }
 
@@ -38,9 +69,9 @@
       position: sticky;
       top: 0;
       z-index: 1000;
-      background: rgba(11, 16, 32, 0.9);
-      backdrop-filter: blur(8px);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(14px);
+      background: rgba(7, 11, 20, 0.72);
+      border-bottom: 1px solid var(--line);
     }
 
     .nav {
@@ -51,9 +82,12 @@
     }
 
     .logo {
-      font-size: 1.2rem;
+      font-size: 1.25rem;
       font-weight: 700;
-      letter-spacing: 0.5px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #ffffff;
+      text-shadow: 0 0 10px rgba(83,183,255,0.35);
     }
 
     .nav-links {
@@ -63,55 +97,97 @@
     }
 
     .nav-links a {
-      color: #cdd7ea;
-      transition: 0.2s;
+      color: var(--muted);
+      transition: 0.2s ease;
+      position: relative;
     }
 
     .nav-links a:hover {
-      color: #ffffff;
+      color: #fff;
+    }
+
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -6px;
+      width: 0%;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      transition: 0.25s ease;
+      box-shadow: var(--glow);
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
     }
 
     .hero {
-      padding: 90px 0 70px;
-      background:
-        radial-gradient(circle at top right, rgba(69, 144, 255, 0.18), transparent 30%),
-        radial-gradient(circle at left center, rgba(111, 66, 193, 0.16), transparent 25%);
+      padding: 110px 0 90px;
+      position: relative;
+      overflow: hidden;
     }
 
     .hero-grid {
       display: grid;
       grid-template-columns: 1.2fr 0.8fr;
-      gap: 36px;
+      gap: 42px;
       align-items: center;
     }
 
-    .hero-text h1 {
-      font-size: 3rem;
-      line-height: 1.1;
-      margin-bottom: 14px;
+    .hero-kicker {
+      display: inline-block;
+      color: #9fdcff;
+      border: 1px solid rgba(83,183,255,0.26);
+      background: rgba(83,183,255,0.08);
+      padding: 6px 12px;
+      border-radius: 999px;
+      margin-bottom: 18px;
+      font-size: 0.95rem;
+      box-shadow: 0 0 12px rgba(83,183,255,0.12);
     }
 
-    .hero-text p {
-      color: #b8c3d9;
-      max-width: 700px;
-      margin-bottom: 22px;
-      font-size: 1.05rem;
+    .hero h1 {
+      font-size: 3.35rem;
+      line-height: 1.08;
+      margin-bottom: 18px;
+      text-shadow: 0 0 24px rgba(83,183,255,0.18);
+    }
+
+    .hero h1 span {
+      background: linear-gradient(90deg, #ffffff 10%, #82d7ff 50%, #b99cff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero p {
+      color: var(--muted);
+      font-size: 1.06rem;
+      max-width: 720px;
+      margin-bottom: 24px;
     }
 
     .tag-row {
       display: flex;
       flex-wrap: wrap;
       gap: 12px;
-      margin-bottom: 26px;
+      margin-bottom: 28px;
     }
 
     .tag {
       padding: 8px 14px;
       border-radius: 999px;
-      background: rgba(255, 255, 255, 0.08);
-      color: #dbe5f7;
-      font-size: 0.95rem;
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255,255,255,0.05);
+      color: #dce8ff;
+      border: 1px solid rgba(255,255,255,0.08);
+      font-size: 0.93rem;
+      transition: 0.2s ease;
+    }
+
+    .tag:hover {
+      border-color: rgba(83,183,255,0.3);
+      box-shadow: 0 0 14px rgba(83,183,255,0.16);
+      transform: translateY(-2px);
     }
 
     .hero-buttons {
@@ -122,51 +198,77 @@
 
     .btn {
       display: inline-block;
-      padding: 12px 18px;
-      border-radius: 10px;
+      padding: 13px 20px;
+      border-radius: 12px;
       font-weight: 700;
-      transition: 0.2s ease;
+      transition: 0.25s ease;
+      letter-spacing: 0.02em;
     }
 
     .btn-primary {
-      background: #5b8cff;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
       color: white;
+      box-shadow: var(--glow);
     }
 
     .btn-primary:hover {
-      transform: translateY(-2px);
+      transform: translateY(-3px) scale(1.01);
+      box-shadow: 0 0 22px rgba(83, 183, 255, 0.4), 0 0 38px rgba(140, 91, 255, 0.25);
     }
 
     .btn-secondary {
-      border: 1px solid rgba(255,255,255,0.15);
-      color: #e8edf7;
-      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.05);
+      color: var(--text);
     }
 
     .btn-secondary:hover {
-      transform: translateY(-2px);
+      transform: translateY(-3px);
+      border-color: rgba(83,183,255,0.32);
+      box-shadow: 0 0 16px rgba(83,183,255,0.14);
     }
 
-    .hero-card {
-      background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.04));
+    .hero-panel {
+      background: linear-gradient(180deg, rgba(23, 32, 58, 0.72), rgba(10, 15, 28, 0.85));
       border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 18px;
-      padding: 24px;
-      box-shadow: 0 16px 40px rgba(0,0,0,0.25);
+      border-radius: 22px;
+      padding: 28px;
+      box-shadow: 0 18px 50px rgba(0,0,0,0.35);
+      position: relative;
+      overflow: hidden;
     }
 
-    .hero-card h3 {
-      margin-bottom: 14px;
+    .hero-panel::before {
+      content: "";
+      position: absolute;
+      inset: -20% auto auto -30%;
+      width: 220px;
+      height: 220px;
+      background: radial-gradient(circle, rgba(83,183,255,0.28), transparent 60%);
+      filter: blur(10px);
+      pointer-events: none;
+    }
+
+    .hero-panel h3 {
       font-size: 1.1rem;
+      margin-bottom: 14px;
+      color: #ffffff;
     }
 
-    .hero-card p {
-      color: #b8c3d9;
+    .hero-panel p {
       margin-bottom: 10px;
+      color: var(--muted);
+    }
+
+    .scan {
+      font-family: "Courier New", monospace;
+      color: #9ee0ff;
+      font-size: 0.96rem;
+      letter-spacing: 0.04em;
     }
 
     section {
-      padding: 72px 0;
+      padding: 82px 0;
     }
 
     .section-title {
@@ -174,10 +276,79 @@
       margin-bottom: 10px;
     }
 
+    .section-title span {
+      color: #9dd7ff;
+      text-shadow: 0 0 12px rgba(83,183,255,0.2);
+    }
+
     .section-subtitle {
-      color: #b8c3d9;
-      margin-bottom: 32px;
+      color: var(--muted);
+      margin-bottom: 34px;
       max-width: 760px;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 24px;
+      backdrop-filter: blur(10px);
+      transition: 0.25s ease;
+    }
+
+    .panel:hover {
+      transform: translateY(-4px);
+      border-color: rgba(83,183,255,0.25);
+      box-shadow: 0 0 20px rgba(83,183,255,0.08);
+    }
+
+    .panel h3 {
+      margin-bottom: 14px;
+      font-size: 1.15rem;
+      color: #fff;
+    }
+
+    .panel p {
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+      margin-top: 26px;
+    }
+
+    .skill-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 18px;
+      text-align: center;
+      transition: 0.25s ease;
+    }
+
+    .skill-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(83,183,255,0.25);
+      box-shadow: 0 0 18px rgba(83,183,255,0.12);
+    }
+
+    .skill-card h4 {
+      margin-bottom: 8px;
+      color: #ffffff;
+    }
+
+    .skill-card p {
+      color: var(--muted);
+      font-size: 0.92rem;
     }
 
     .projects-grid {
@@ -186,52 +357,63 @@
       gap: 24px;
     }
 
-    .card {
-      background: #12192d;
+    .project-card {
+      background: linear-gradient(180deg, rgba(17, 24, 41, 0.84), rgba(10, 15, 28, 0.96));
       border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 18px;
+      border-radius: 20px;
       overflow: hidden;
-      transition: 0.25s ease;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.18);
+      transition: 0.28s ease;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.24);
+      position: relative;
     }
 
-    .card:hover {
-      transform: translateY(-6px);
+    .project-card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(83,183,255,0.28);
+      box-shadow: 0 0 18px rgba(83,183,255,0.12), 0 18px 38px rgba(0,0,0,0.28);
     }
 
-    .card-image {
-      width: 100%;
-      height: 220px;
-      object-fit: cover;
-      background: linear-gradient(135deg, #1b2440, #111827);
-      border-bottom: 1px solid rgba(255,255,255,0.08);
-    }
-
-    .image-placeholder {
+    .project-image {
       width: 100%;
       height: 220px;
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #93a4c7;
-      font-size: 0.95rem;
-      background: linear-gradient(135deg, #18233d, #0f172a);
+      text-align: center;
+      padding: 20px;
+      color: #9bb2d8;
+      background:
+        linear-gradient(135deg, rgba(83,183,255,0.14), rgba(140,91,255,0.10)),
+        linear-gradient(160deg, #121b31, #0a101d);
       border-bottom: 1px solid rgba(255,255,255,0.08);
+      position: relative;
     }
 
-    .card-content {
+    .project-image::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 28px 28px;
+      opacity: 0.5;
+    }
+
+    .project-content {
       padding: 22px;
     }
 
-    .card-content h3 {
+    .project-content h3 {
       margin-bottom: 10px;
+      color: #fff;
       font-size: 1.2rem;
     }
 
-    .card-content p {
-      color: #bcc7dc;
+    .project-content p {
+      color: var(--muted);
       margin-bottom: 14px;
-      min-height: 96px;
+      min-height: 120px;
     }
 
     .small-tags {
@@ -244,36 +426,20 @@
     .small-tag {
       padding: 6px 10px;
       border-radius: 999px;
-      background: rgba(91, 140, 255, 0.12);
-      color: #cfe0ff;
-      font-size: 0.85rem;
+      font-size: 0.84rem;
+      color: #d8ebff;
+      background: rgba(83,183,255,0.10);
+      border: 1px solid rgba(83,183,255,0.14);
     }
 
-    .card-link {
-      color: #8fb2ff;
+    .project-link {
+      color: #9fdcff;
       font-weight: 700;
     }
 
-    .about-box {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 26px;
-    }
-
-    .panel {
-      background: #12192d;
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 18px;
-      padding: 24px;
-    }
-
-    .panel h3 {
-      margin-bottom: 14px;
-    }
-
-    .panel p {
-      color: #bcc7dc;
-      margin-bottom: 12px;
+    .project-link:hover {
+      color: #fff;
+      text-shadow: 0 0 10px rgba(83,183,255,0.35);
     }
 
     .contact-grid {
@@ -283,42 +449,52 @@
     }
 
     .contact-card {
-      background: #12192d;
-      border: 1px solid rgba(255,255,255,0.08);
+      background: var(--panel);
+      border: 1px solid var(--line);
       border-radius: 16px;
       padding: 22px;
+      transition: 0.25s ease;
+    }
+
+    .contact-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(83,183,255,0.28);
+      box-shadow: 0 0 18px rgba(83,183,255,0.1);
     }
 
     .contact-card h4 {
       margin-bottom: 8px;
+      color: #fff;
     }
 
     .contact-card p,
     .contact-card a {
-      color: #bcc7dc;
+      color: var(--muted);
+      word-break: break-word;
     }
 
     footer {
       border-top: 1px solid rgba(255,255,255,0.08);
-      padding: 24px 0 36px;
-      color: #8f9db8;
+      padding: 26px 0 36px;
+      color: #8d9ab5;
       text-align: center;
     }
 
-    @media (max-width: 900px) {
+    @media (max-width: 980px) {
       .hero-grid,
+      .about-grid,
       .projects-grid,
-      .about-box,
-      .contact-grid {
+      .contact-grid,
+      .skills-grid {
         grid-template-columns: 1fr;
       }
 
-      .hero-text h1 {
-        font-size: 2.35rem;
+      .hero h1 {
+        font-size: 2.55rem;
       }
     }
 
-    @media (max-width: 600px) {
+    @media (max-width: 640px) {
       .nav {
         flex-direction: column;
         gap: 14px;
@@ -329,10 +505,10 @@
       }
 
       .hero {
-        padding-top: 60px;
+        padding: 78px 0 64px;
       }
 
-      .hero-text h1 {
+      .hero h1 {
         font-size: 2rem;
       }
     }
@@ -344,8 +520,8 @@
       <div class="logo">Wang Che</div>
       <nav class="nav-links">
         <a href="#home">Home</a>
-        <a href="#projects">Projects</a>
         <a href="#about">About</a>
+        <a href="#projects">Projects</a>
         <a href="#contact">Contact</a>
       </nav>
     </div>
@@ -354,17 +530,20 @@
   <main>
     <section class="hero" id="home">
       <div class="container hero-grid">
-        <div class="hero-text">
-          <h1>Computer Graphics and Rendering Portfolio</h1>
+        <div>
+          <div class="hero-kicker">Graphics / Rendering / Game Tech</div>
+          <h1>Hi, I’m <span>Wang Che</span></h1>
           <p>
-            I am a CS student focused on computer graphics, rendering, and low-level graphics programming.
-            I am currently learning graphics from the ground up through OpenGL practice, shader experiments,
-            textures, blending, and depth testing.
+            I am a Computer Science student at Rutgers University with a strong interest in
+            computer graphics, rendering, shader programming, and low-level graphics systems.
+            I enjoy learning graphics from the ground up and building my understanding through
+            OpenGL, rendering pipelines, and hands-on projects.
           </p>
 
           <div class="tag-row">
+            <span class="tag">Rutgers University</span>
+            <span class="tag">Computer Graphics</span>
             <span class="tag">OpenGL</span>
-            <span class="tag">Rendering</span>
             <span class="tag">Shaders</span>
             <span class="tag">Vulkan</span>
             <span class="tag">Minecraft Shaders</span>
@@ -376,34 +555,90 @@
           </div>
         </div>
 
-        <div class="hero-card">
-          <h3>Current Focus</h3>
-          <p>Building strong graphics fundamentals before moving into more advanced real-time rendering work.</p>
-          <p><strong>Now learning:</strong> VAO and VBO, shaders, textures, blending, depth testing, and OpenGL workflow.</p>
-          <p><strong>Long-term direction:</strong> Vulkan, mini renderer, and custom Minecraft shader development.</p>
+        <div class="hero-panel">
+          <h3>Personal Profile</h3>
+          <p class="scan">> School: Rutgers University</p>
+          <p class="scan">> Major: Computer Science</p>
+          <p class="scan">> Focus: Rendering, OpenGL, GLSL, graphics fundamentals</p>
+          <p class="scan">> Future direction: Vulkan, mini renderer, Minecraft shader development</p>
+          <p class="scan">> Learning style: bottom-up, implementation-driven</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="container">
+        <h2 class="section-title">About <span>Me</span></h2>
+        <p class="section-subtitle">
+          I enjoy building a deeper understanding of how graphics work under the hood,
+          from vertex data and shaders to rendering pipelines and visual effects.
+        </p>
+
+        <div class="about-grid">
+          <div class="panel">
+            <h3>Who I Am</h3>
+            <p>
+              I am a Rutgers University Computer Science student who is especially interested in
+              computer graphics, real-time rendering, and shader-based visual work.
+            </p>
+            <p>
+              Rather than only using high-level tools, I like understanding how things work
+              underneath — buffers, shader stages, draw calls, and the graphics pipeline.
+            </p>
+          </div>
+
+          <div class="panel">
+            <h3>What Drives Me</h3>
+            <p>
+              My goal is to build a strong foundation in graphics programming and gradually grow
+              toward larger rendering projects.
+            </p>
+            <p>
+              I am currently focused on OpenGL and shader practice, and in the future I want to explore
+              Vulkan, mini rendering engines, and custom Minecraft shader effects.
+            </p>
+          </div>
+        </div>
+
+        <div class="skills-grid">
+          <div class="skill-card">
+            <h4>OpenGL</h4>
+            <p>Learning rendering basics through C++, GLFW, GLAD, and shader programming.</p>
+          </div>
+          <div class="skill-card">
+            <h4>GLSL</h4>
+            <p>Experimenting with vertex and fragment shaders, color, and rendering effects.</p>
+          </div>
+          <div class="skill-card">
+            <h4>C++</h4>
+            <p>Using C++ to build graphics programs and understand low-level behavior.</p>
+          </div>
+          <div class="skill-card">
+            <h4>Future Vulkan</h4>
+            <p>Interested in lower-level graphics APIs and more advanced rendering systems.</p>
+          </div>
         </div>
       </div>
     </section>
 
     <section id="projects">
       <div class="container">
-        <h2 class="section-title">Projects</h2>
+        <h2 class="section-title">Selected <span>Projects</span></h2>
         <p class="section-subtitle">
-          My current work and future graphics projects.
+          My current graphics work and the directions I want to explore next.
         </p>
 
         <div class="projects-grid">
-          <article class="card">
-            <!-- 把下面这行替换成你的截图路径 -->
-            <!-- 例如: <img class="card-image" src="images/opengl-screenshot.png" alt="OpenGL project screenshot"> -->
-            <div class="image-placeholder">OpenGL screenshot goes here</div>
-
-            <div class="card-content">
+          <article class="project-card">
+            <!-- 你可以把这里换成自己的截图 -->
+            <!-- 示例: <img class="project-image" src="images/opengl-project.png" alt="OpenGL project screenshot"> -->
+            <div class="project-image">Add your OpenGL screenshot here</div>
+            <div class="project-content">
               <h3>OpenGL Practice</h3>
               <p>
-                A C++ OpenGL learning project using GLFW and GLAD. This project focuses on building
-                graphics fundamentals through triangle rendering, shaders, wireframe mode,
-                textures, blending, and depth testing.
+                A C++ OpenGL learning project using GLFW and GLAD. This project reflects my current
+                focus on graphics fundamentals, including triangle rendering, shader programming,
+                wireframe mode, textures, blending, and depth testing.
               </p>
 
               <div class="small-tags">
@@ -413,17 +648,20 @@
                 <span class="small-tag">GLAD</span>
               </div>
 
-              <a class="card-link" href="https://github.com/GloryKazimierz/opengl" target="_blank">View GitHub Repo</a>
+              <a class="project-link" href="https://github.com/GloryKazimierz/opengl" target="_blank">
+                View GitHub Repo
+              </a>
             </div>
           </article>
 
-          <article class="card">
-            <div class="image-placeholder">Future Vulkan project preview</div>
-            <div class="card-content">
+          <article class="project-card">
+            <div class="project-image">Future Vulkan renderer project</div>
+            <div class="project-content">
               <h3>Future Vulkan Renderer</h3>
               <p>
-                Planned project. I want to continue moving from OpenGL fundamentals toward lower-level rendering
-                systems and learn how modern graphics pipelines are built in greater depth.
+                I want to move beyond OpenGL into lower-level rendering work.
+                This future project represents my interest in modern graphics systems,
+                explicit control, and building a stronger rendering foundation.
               </p>
 
               <div class="small-tags">
@@ -432,17 +670,18 @@
                 <span class="small-tag">Planned</span>
               </div>
 
-              <span class="card-link">Currently exploring fundamentals</span>
+              <span class="project-link">Currently preparing through fundamentals</span>
             </div>
           </article>
 
-          <article class="card">
-            <div class="image-placeholder">Minecraft shader project preview</div>
-            <div class="card-content">
+          <article class="project-card">
+            <div class="project-image">Minecraft shader project</div>
+            <div class="project-content">
               <h3>Minecraft Shader Project</h3>
               <p>
-                Planned shaderpack work for Minecraft. The goal is to apply rendering knowledge to a real visual
-                project and experiment with custom lighting, color, atmosphere, and post-processing ideas.
+                I am also interested in creating custom Minecraft shader effects.
+                This project connects my graphics learning with lighting, atmosphere,
+                post-processing, and visual experimentation in a game context.
               </p>
 
               <div class="small-tags">
@@ -451,68 +690,38 @@
                 <span class="small-tag">Shaders</span>
               </div>
 
-              <span class="card-link">Preparing for implementation</span>
+              <span class="project-link">Planned personal graphics project</span>
             </div>
           </article>
         </div>
       </div>
     </section>
 
-    <section id="about">
-      <div class="container">
-        <h2 class="section-title">About</h2>
-        <p class="section-subtitle">
-          A little more about my interests and direction.
-        </p>
-
-        <div class="about-box">
-          <div class="panel">
-            <h3>What I am interested in</h3>
-            <p>
-              I am especially interested in computer graphics, rendering, shaders,
-              and low-level graphics programming.
-            </p>
-            <p>
-              I like learning graphics from the ground up and understanding how things work underneath
-              the engine level.
-            </p>
-          </div>
-
-          <div class="panel">
-            <h3>What I want to build next</h3>
-            <p>
-              In the future, I want to build stronger rendering projects, explore Vulkan,
-              and create more advanced graphics work such as a mini renderer or custom shader effects.
-            </p>
-            <p>
-              I also want to keep improving my portfolio so that each project shows both visuals and technical growth.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
     <section id="contact">
       <div class="container">
-        <h2 class="section-title">Contact</h2>
+        <h2 class="section-title">Contact <span>Info</span></h2>
         <p class="section-subtitle">
-          You can find my work and reach me here.
+          Feel free to connect with me or explore my work.
         </p>
 
         <div class="contact-grid">
           <div class="contact-card">
-            <h4>GitHub</h4>
-            <a href="https://github.com/GloryKazimierz" target="_blank">github.com/GloryKazimierz</a>
-          </div>
-
-          <div class="contact-card">
             <h4>Email</h4>
-            <p>your-email@example.com</p>
+            <a href="mailto:wang1610909540@gmail.com">wang1610909540@gmail.com</a>
           </div>
 
           <div class="contact-card">
-            <h4>Current Direction</h4>
-            <p>Computer Graphics, Rendering, OpenGL, Future Vulkan Projects</p>
+            <h4>LinkedIn</h4>
+            <a href="https://www.linkedin.com/in/澈-王-143a95293" target="_blank">
+              www.linkedin.com/in/澈-王-143a95293
+            </a>
+          </div>
+
+          <div class="contact-card">
+            <h4>GitHub</h4>
+            <a href="https://github.com/GloryKazimierz" target="_blank">
+              github.com/GloryKazimierz
+            </a>
           </div>
         </div>
       </div>
@@ -521,7 +730,7 @@
 
   <footer>
     <div class="container">
-      <p>© 2026 Wang Che. Built for graphics and rendering projects.</p>
+      <p>© 2026 Wang Che — Built with interest in graphics, rendering, and game technology.</p>
     </div>
   </footer>
 </body>
