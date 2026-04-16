@@ -1,1019 +1,3985 @@
 <!DOCTYPE html>
-<html lang="en">
+<html
+  lang="en"
+>
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Wang Che | Graphics, Rendering, and Creative Systems</title>
+  <meta
+    charset="UTF-8"
+  />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
+  <title>
+    Wang Che | Frost Engine Portfolio
+  </title>
+  <link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+  />
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+  />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Cormorant+Garamond:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@400;500;700&display=swap"
+    rel="stylesheet"
+  />
   <style>
-    :root {
-      --bg: #0a0d14;
-      --bg-soft: #101522;
-      --panel: rgba(255, 255, 255, 0.06);
-      --panel-strong: rgba(255, 255, 255, 0.08);
-      --line: rgba(255, 255, 255, 0.10);
-      --text: #eef3ff;
-      --muted: #b5bfd6;
-
-      --c1: #6ecbff;
-      --c2: #8d7cff;
-      --c3: #ff8aa5;
-      --c4: #ffd36e;
-      --c5: #72f1cf;
-
-      --shadow: 0 20px 50px rgba(0, 0, 0, 0.28);
-      --radius-xl: 28px;
-      --radius-lg: 22px;
-      --radius-md: 16px;
+    :root
+    {
+      --bg-0:
+        #050916;
+      --bg-1:
+        #071226;
+      --bg-2:
+        #0a1730;
+      --bg-3:
+        #0f1f3c;
+      --text-main:
+        #eefaff;
+      --text-soft:
+        #c9dfff;
+      --text-dim:
+        #9eb4d6;
+      --ice-0:
+        rgba(214, 248, 255, 0.96);
+      --ice-1:
+        rgba(177, 236, 255, 0.90);
+      --ice-2:
+        rgba(174, 194, 255, 0.92);
+      --ice-3:
+        rgba(217, 179, 255, 0.88);
+      --ice-4:
+        rgba(255, 192, 235, 0.84);
+      --ice-5:
+        rgba(237, 220, 255, 0.88);
+      --ice-mint:
+        rgba(183, 255, 243, 0.92);
+      --ice-gold:
+        rgba(255, 230, 188, 0.84);
+      --line-soft:
+        rgba(255, 255, 255, 0.10);
+      --line-mid:
+        rgba(255, 255, 255, 0.16);
+      --line-strong:
+        rgba(255, 255, 255, 0.24);
+      --glass:
+        rgba(255, 255, 255, 0.055);
+      --glass-strong:
+        rgba(255, 255, 255, 0.085);
+      --shadow-soft:
+        0 20px 60px rgba(0, 0, 0, 0.24);
+      --shadow-deep:
+        0 36px 80px rgba(0, 0, 0, 0.32);
+      --radius-sm:
+        16px;
+      --radius-md:
+        22px;
+      --radius-lg:
+        30px;
+      --radius-xl:
+        40px;
+      --mouse-x:
+        50vw;
+      --mouse-y:
+        50vh;
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      scroll-behavior: smooth;
+    *
+    {
+      box-sizing:
+        border-box;
+      margin:
+        0;
+      padding:
+        0;
+      scroll-behavior:
+        smooth;
     }
 
-    html, body {
-      overflow-x: hidden;
+    html,
+    body
+    {
+      overflow-x:
+        hidden;
     }
 
-    body {
-      font-family: Arial, Helvetica, sans-serif;
-      color: var(--text);
+    body
+    {
+      min-height:
+        100vh;
+      font-family:
+        "Outfit",
+        sans-serif;
+      line-height:
+        1.7;
+      color:
+        var(--text-main);
       background:
-        radial-gradient(circle at 10% 15%, rgba(110, 203, 255, 0.18), transparent 24%),
-        radial-gradient(circle at 88% 12%, rgba(141, 124, 255, 0.18), transparent 26%),
-        radial-gradient(circle at 70% 78%, rgba(255, 138, 165, 0.14), transparent 24%),
-        radial-gradient(circle at 25% 75%, rgba(114, 241, 207, 0.10), transparent 24%),
-        linear-gradient(180deg, #090c13 0%, #0f1523 45%, #0a0d14 100%);
-      line-height: 1.7;
-      position: relative;
+        radial-gradient(circle at 8% 10%, rgba(125, 233, 255, 0.16), transparent 18%),
+        radial-gradient(circle at 92% 10%, rgba(197, 149, 255, 0.20), transparent 18%),
+        radial-gradient(circle at 82% 82%, rgba(255, 186, 232, 0.16), transparent 20%),
+        radial-gradient(circle at 18% 78%, rgba(183, 255, 243, 0.12), transparent 20%),
+        linear-gradient(180deg, var(--bg-0) 0%, var(--bg-1) 25%, var(--bg-2) 60%, var(--bg-0) 100%);
+      position:
+        relative;
+      isolation:
+        isolate;
     }
 
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      background-image:
+    body::before
+    {
+      content:
+        "";
+      position:
+        fixed;
+      inset:
+        0;
+      background:
         linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
         linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
-      background-size: 34px 34px;
-      opacity: 0.38;
-      pointer-events: none;
-      z-index: -2;
+      background-size:
+        34px 34px;
+      opacity:
+        0.22;
+      pointer-events:
+        none;
+      z-index:
+        -5;
+      mask-image:
+        radial-gradient(circle at center, black 40%, transparent 95%);
     }
 
-    a {
-      text-decoration: none;
-      color: inherit;
-    }
-
-    img {
-      max-width: 100%;
-      display: block;
-    }
-
-    .container {
-      width: min(1150px, 92%);
-      margin: 0 auto;
-    }
-
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 999;
-      backdrop-filter: blur(18px);
-      background: rgba(10, 13, 20, 0.68);
-      border-bottom: 1px solid rgba(255,255,255,0.08);
-    }
-
-    .nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 20px;
-      padding: 18px 0;
-    }
-
-    .logo {
-      font-size: 1.15rem;
-      font-weight: 700;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: #ffffff;
-    }
-
-    .nav-links {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 24px;
-    }
-
-    .nav-links a {
-      color: var(--muted);
-      font-size: 0.97rem;
-      position: relative;
-      transition: 0.25s ease;
-    }
-
-    .nav-links a:hover {
-      color: #fff;
-    }
-
-    .nav-links a::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      bottom: -6px;
-      width: 0%;
-      height: 2px;
-      border-radius: 999px;
-      background: linear-gradient(90deg, var(--c1), var(--c2), var(--c3));
-      transition: 0.25s ease;
-    }
-
-    .nav-links a:hover::after {
-      width: 100%;
-    }
-
-    .section {
-      padding: 90px 0;
-      position: relative;
-    }
-
-    .section::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: min(1150px, 92%);
-      height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.10), transparent);
-    }
-
-    .hero {
-      min-height: 92vh;
-      display: flex;
-      align-items: center;
-      padding: 88px 0 58px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero-blur {
-      position: absolute;
-      border-radius: 50%;
-      filter: blur(34px);
-      pointer-events: none;
-      opacity: 0.9;
-    }
-
-    .blur-a {
-      width: 320px;
-      height: 320px;
-      background: radial-gradient(circle, rgba(110, 203, 255, 0.18), transparent 65%);
-      left: -60px;
-      top: 70px;
-    }
-
-    .blur-b {
-      width: 280px;
-      height: 280px;
-      background: radial-gradient(circle, rgba(255, 138, 165, 0.16), transparent 65%);
-      right: -40px;
-      top: 110px;
-    }
-
-    .blur-c {
-      width: 250px;
-      height: 250px;
-      background: radial-gradient(circle, rgba(255, 211, 110, 0.15), transparent 65%);
-      left: 28%;
-      bottom: 0;
-    }
-
-    .hero-grid {
-      display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
-      gap: 34px;
-      align-items: center;
-      position: relative;
-      z-index: 1;
-    }
-
-    .eyebrow {
-      display: inline-block;
-      padding: 8px 14px;
-      border-radius: 999px;
-      font-size: 0.94rem;
-      color: #ffffff;
-      background: linear-gradient(90deg, rgba(110,203,255,0.12), rgba(141,124,255,0.12), rgba(255,138,165,0.12));
-      border: 1px solid rgba(255,255,255,0.10);
-      margin-bottom: 18px;
-    }
-
-    .hero h1 {
-      font-size: 4rem;
-      line-height: 1.04;
-      letter-spacing: -0.04em;
-      margin-bottom: 18px;
-    }
-
-    .hero h1 .gradient {
-      background: linear-gradient(90deg, #ffffff 5%, var(--c1) 28%, var(--c2) 52%, var(--c3) 76%, var(--c4) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .hero p {
-      color: var(--muted);
-      max-width: 720px;
-      font-size: 1.06rem;
-      margin-bottom: 24px;
-    }
-
-    .tag-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-bottom: 28px;
-    }
-
-    .tag {
-      padding: 8px 14px;
-      border-radius: 999px;
-      font-size: 0.92rem;
-      color: #edf4ff;
-      border: 1px solid rgba(255,255,255,0.10);
-      background: rgba(255,255,255,0.05);
-      transition: 0.25s ease;
-    }
-
-    .tag:nth-child(5n+1) { background: rgba(110,203,255,0.09); }
-    .tag:nth-child(5n+2) { background: rgba(141,124,255,0.09); }
-    .tag:nth-child(5n+3) { background: rgba(255,138,165,0.09); }
-    .tag:nth-child(5n+4) { background: rgba(255,211,110,0.09); }
-    .tag:nth-child(5n+5) { background: rgba(114,241,207,0.09); }
-
-    .tag:hover {
-      transform: translateY(-2px);
-      border-color: rgba(255,255,255,0.18);
-    }
-
-    .hero-buttons {
-      display: flex;
-      gap: 14px;
-      flex-wrap: wrap;
-    }
-
-    .btn {
-      display: inline-block;
-      padding: 13px 20px;
-      border-radius: 14px;
-      font-weight: 700;
-      transition: 0.25s ease;
-    }
-
-    .btn-primary {
-      color: white;
-      background: linear-gradient(90deg, var(--c1), var(--c2), var(--c3));
-      box-shadow: 0 10px 26px rgba(141,124,255,0.24);
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-3px);
-    }
-
-    .btn-secondary {
-      color: var(--text);
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.12);
-    }
-
-    .btn-secondary:hover {
-      transform: translateY(-3px);
-    }
-
-    .hero-card-stack {
-      display: grid;
-      gap: 18px;
-    }
-
-    .floating-card {
-      position: relative;
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: var(--radius-xl);
-      overflow: hidden;
-      box-shadow: var(--shadow);
-    }
-
-    .floating-card::before {
-      content: "";
-      position: absolute;
-      inset: 0;
+    body::after
+    {
+      content:
+        "";
+      position:
+        fixed;
+      inset:
+        0;
+      pointer-events:
+        none;
+      z-index:
+        -4;
       background:
-        linear-gradient(135deg, rgba(110,203,255,0.08), transparent 30%),
-        linear-gradient(225deg, rgba(255,138,165,0.08), transparent 32%);
-      pointer-events: none;
+        repeating-linear-gradient(
+          to bottom,
+          rgba(255,255,255,0.016) 0px,
+          rgba(255,255,255,0.016) 1px,
+          transparent 3px,
+          transparent 7px
+        );
+      opacity:
+        0.20;
+      mix-blend-mode:
+        screen;
     }
 
-    .card-top {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 14px 18px;
-      border-bottom: 1px solid rgba(255,255,255,0.08);
-      background: rgba(255,255,255,0.03);
+    a
+    {
+      text-decoration:
+        none;
+      color:
+        inherit;
     }
 
-    .dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
+    img,
+    svg
+    {
+      display:
+        block;
+      max-width:
+        100%;
     }
 
-    .dot.a { background: var(--c1); }
-    .dot.b { background: var(--c2); }
-    .dot.c { background: var(--c3); }
-
-    .card-body {
-      padding: 22px;
-      position: relative;
-      z-index: 1;
+    button
+    {
+      font:
+        inherit;
     }
 
-    .card-body h3 {
-      margin-bottom: 14px;
-      font-size: 1.08rem;
-      color: #fff;
+    .ambient-canvas
+    {
+      position:
+        fixed;
+      inset:
+        0;
+      z-index:
+        -3;
+      pointer-events:
+        none;
+      opacity:
+        0.70;
     }
 
-    .scan {
-      font-family: "Courier New", monospace;
-      color: #d8ecff;
-      font-size: 0.95rem;
-      margin-bottom: 8px;
-    }
-
-    .mini-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 16px;
-    }
-
-    .mini-card {
-      padding: 18px;
-      border-radius: 18px;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.08);
-      box-shadow: var(--shadow);
-    }
-
-    .mini-card h4 {
-      margin-bottom: 8px;
-      font-size: 1rem;
-      color: #fff;
-    }
-
-    .mini-card p {
-      color: var(--muted);
-      font-size: 0.94rem;
-    }
-
-    .section-title {
-      font-size: 2.25rem;
-      margin-bottom: 10px;
-      letter-spacing: -0.03em;
-    }
-
-    .section-title span {
-      background: linear-gradient(90deg, var(--c1), var(--c2), var(--c3));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .section-subtitle {
-      color: var(--muted);
-      max-width: 760px;
-      margin-bottom: 34px;
-      font-size: 1rem;
-    }
-
-    .grid-2 {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 22px;
-    }
-
-    .grid-3 {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 22px;
-    }
-
-    .grid-4 {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 18px;
-    }
-
-    .glass-card {
-      position: relative;
-      padding: 24px;
-      border-radius: var(--radius-lg);
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.08);
-      box-shadow: var(--shadow);
-      overflow: hidden;
-      transition: 0.25s ease;
-    }
-
-    .glass-card::after {
-      content: "";
-      position: absolute;
-      inset: auto -20px -40px auto;
-      width: 140px;
-      height: 140px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(110,203,255,0.12), transparent 68%);
-      pointer-events: none;
-    }
-
-    .glass-card:hover {
-      transform: translateY(-6px);
-    }
-
-    .glass-card h3,
-    .glass-card h4 {
-      color: #fff;
-      margin-bottom: 12px;
-    }
-
-    .glass-card p {
-      color: var(--muted);
-      margin-bottom: 10px;
-    }
-
-    .accent-bar {
-      width: 54px;
-      height: 6px;
-      border-radius: 999px;
-      margin-bottom: 16px;
-      background: linear-gradient(90deg, var(--c1), var(--c2), var(--c3), var(--c4));
-    }
-
-    .tech-card {
-      text-align: center;
-      padding: 22px 18px;
-      border-radius: 20px;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.08);
-      box-shadow: var(--shadow);
-      transition: 0.25s ease;
-    }
-
-    .tech-card:hover {
-      transform: translateY(-6px);
-    }
-
-    .tech-icon {
-      width: 66px;
-      height: 66px;
-      margin: 0 auto 14px;
-      border-radius: 18px;
-      display: grid;
-      place-items: center;
-      color: white;
-      font-weight: 700;
-      letter-spacing: 0.04em;
-      font-size: 1rem;
-      background: linear-gradient(135deg, var(--c1), var(--c2), var(--c3));
-      box-shadow: 0 12px 24px rgba(141,124,255,0.22);
-    }
-
-    .tech-card p {
-      color: var(--muted);
-      font-size: 0.93rem;
-    }
-
-    .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
-    }
-
-    .project-card {
-      border-radius: 24px;
-      overflow: hidden;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.08);
-      box-shadow: var(--shadow);
-      transition: 0.28s ease;
-    }
-
-    .project-card:hover {
-      transform: translateY(-8px);
-    }
-
-    .project-visual {
-      position: relative;
-      height: 230px;
-      padding: 18px;
-      display: flex;
-      align-items: flex-end;
-      border-bottom: 1px solid rgba(255,255,255,0.08);
-      overflow: hidden;
+    .cursor-glow
+    {
+      position:
+        fixed;
+      width:
+        360px;
+      height:
+        360px;
+      border-radius:
+        50%;
+      pointer-events:
+        none;
+      z-index:
+        -1;
+      mix-blend-mode:
+        screen;
       background:
-        radial-gradient(circle at top left, rgba(110,203,255,0.18), transparent 26%),
-        radial-gradient(circle at top right, rgba(141,124,255,0.16), transparent 26%),
-        radial-gradient(circle at bottom right, rgba(255,138,165,0.16), transparent 28%),
-        linear-gradient(160deg, #131a2d, #0d1322 60%, #0a0d14 100%);
+        radial-gradient(circle at center, rgba(182, 242, 255, 0.22) 0%, rgba(178, 191, 255, 0.18) 30%, rgba(229, 184, 255, 0.14) 52%, rgba(255, 204, 240, 0.08) 65%, transparent 72%);
+      filter:
+        blur(14px);
+      opacity:
+        0.95;
+      transform:
+        translate(-999px, -999px);
     }
 
-    .project-visual::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background-image:
-        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
-      background-size: 28px 28px;
-      opacity: 0.45;
+    .trail-layer
+    {
+      position:
+        fixed;
+      inset:
+        0;
+      pointer-events:
+        none;
+      z-index:
+        3;
     }
 
-    .project-ribbon {
-      position: relative;
-      z-index: 1;
-      padding: 9px 14px;
-      border-radius: 999px;
-      font-size: 0.9rem;
-      color: white;
-      background: linear-gradient(90deg, rgba(110,203,255,0.22), rgba(141,124,255,0.22), rgba(255,138,165,0.22));
-      border: 1px solid rgba(255,255,255,0.12);
-    }
-
-    .project-wave {
-      position: absolute;
-      left: -10%;
-      right: -10%;
-      bottom: -10px;
-      height: 90px;
+    .trail-ice
+    {
+      position:
+        absolute;
+      width:
+        14px;
+      height:
+        14px;
+      border-radius:
+        50%;
       background:
-        radial-gradient(circle at 10% 30%, rgba(110,203,255,0.18), transparent 20%),
-        radial-gradient(circle at 40% 60%, rgba(255,211,110,0.14), transparent 18%),
-        radial-gradient(circle at 70% 35%, rgba(255,138,165,0.16), transparent 18%),
-        radial-gradient(circle at 90% 55%, rgba(114,241,207,0.14), transparent 18%);
-      filter: blur(10px);
-      pointer-events: none;
+        radial-gradient(circle, rgba(226, 250, 255, 0.95), rgba(176, 229, 255, 0.55) 45%, rgba(198, 174, 255, 0.28) 70%, transparent 80%);
+      box-shadow:
+        0 0 20px rgba(178, 236, 255, 0.55),
+        0 0 34px rgba(219, 172, 255, 0.18);
+      opacity:
+        0;
+      will-change:
+        transform,
+        opacity;
     }
 
-    .project-content {
-      padding: 22px;
+    .bg-layer
+    {
+      position:
+        fixed;
+      inset:
+        0;
+      pointer-events:
+        none;
+      z-index:
+        -2;
+      overflow:
+        hidden;
     }
 
-    .project-content h3 {
-      color: #fff;
-      margin-bottom: 10px;
-      font-size: 1.16rem;
+    .bg-aurora
+    {
+      position:
+        absolute;
+      inset:
+        -10%;
+      background:
+        conic-gradient(from 160deg at 50% 50%, rgba(138, 229, 255, 0.12), rgba(183, 169, 255, 0.10), rgba(255, 195, 234, 0.08), rgba(255, 226, 188, 0.06), rgba(183, 255, 243, 0.08), rgba(138, 229, 255, 0.12));
+      filter:
+        blur(70px);
+      animation:
+        slowSpin 40s linear infinite;
+      opacity:
+        0.80;
     }
 
-    .project-content p {
-      color: var(--muted);
-      margin-bottom: 14px;
-      min-height: 120px;
+    .bg-frost-map
+    {
+      position:
+        absolute;
+      inset:
+        0;
+      opacity:
+        0.22;
+      mask-image:
+        radial-gradient(circle at center, black 30%, transparent 100%);
     }
 
-    .small-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-bottom: 16px;
+    .bg-frost-map svg
+    {
+      width:
+        100%;
+      height:
+        100%;
     }
 
-    .small-tag {
-      padding: 6px 10px;
-      border-radius: 999px;
-      font-size: 0.84rem;
-      color: #edf5ff;
-      border: 1px solid rgba(255,255,255,0.08);
-      background: rgba(255,255,255,0.05);
+    .bg-crystal
+    {
+      position:
+        absolute;
+      clip-path:
+        polygon(50% 0%, 88% 24%, 100% 50%, 78% 85%, 50% 100%, 16% 76%, 0% 48%, 20% 18%);
+      border:
+        1px solid rgba(255,255,255,0.14);
+      backdrop-filter:
+        blur(3px);
+      opacity:
+        0.20;
+      animation:
+        drift 11s ease-in-out infinite alternate;
     }
 
-    .project-link {
-      font-weight: 700;
-      color: #fff;
-      background: linear-gradient(90deg, var(--c1), var(--c2), var(--c3));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+    .bg-crystal-cyan
+    {
+      background:
+        linear-gradient(135deg, rgba(198,248,255,0.20), rgba(171,218,255,0.08));
+      box-shadow:
+        0 0 16px rgba(180, 238, 255, 0.10);
     }
 
-    .contact-card a,
-    .contact-card p {
-      color: var(--muted);
-      word-break: break-word;
+    .bg-crystal-violet
+    {
+      background:
+        linear-gradient(135deg, rgba(230,220,255,0.18), rgba(186,170,255,0.08));
+      box-shadow:
+        0 0 16px rgba(198, 169, 255, 0.08);
     }
 
-    .contact-card a:hover {
-      color: #fff;
+    .bg-crystal-pink
+    {
+      background:
+        linear-gradient(135deg, rgba(255,220,245,0.18), rgba(255,178,220,0.08));
+      box-shadow:
+        0 0 16px rgba(255, 192, 232, 0.08);
     }
 
-    footer {
-      text-align: center;
-      padding: 28px 0 42px;
-      color: #8f9ab3;
-      border-top: 1px solid rgba(255,255,255,0.08);
-      background: rgba(0,0,0,0.14);
+    .bg-crystal-silver
+    {
+      background:
+        linear-gradient(135deg, rgba(240,248,255,0.20), rgba(200,222,255,0.06));
+      box-shadow:
+        0 0 14px rgba(220, 240, 255, 0.08);
     }
 
-    @media (max-width: 1024px) {
+    .bg-crystal-mint
+    {
+      background:
+        linear-gradient(135deg, rgba(216,255,247,0.18), rgba(172,255,236,0.06));
+      box-shadow:
+        0 0 16px rgba(182, 255, 240, 0.08);
+    }
+
+    .snowfield
+    {
+      position:
+        fixed;
+      inset:
+        0;
+      z-index:
+        -1;
+      pointer-events:
+        none;
+      overflow:
+        hidden;
+    }
+
+    .snow-particle
+    {
+      position:
+        absolute;
+      top:
+        -20px;
+      border-radius:
+        50%;
+      background:
+        radial-gradient(circle, rgba(255,255,255,0.95), rgba(186,226,255,0.55) 55%, transparent 75%);
+      box-shadow:
+        0 0 12px rgba(200,240,255,0.30);
+      opacity:
+        0.70;
+      animation:
+        snowFall linear infinite;
+    }
+
+    @keyframes snowFall
+    {
+      0%
+      {
+        transform:
+          translate3d(0px, -20px, 0px) scale(0.75);
+        opacity:
+          0;
+      }
+
+      10%
+      {
+        opacity:
+          0.72;
+      }
+
+      100%
+      {
+        transform:
+          translate3d(40px, 110vh, 0px) scale(1.15);
+        opacity:
+          0;
+      }
+    }
+
+    @keyframes drift
+    {
+      0%
+      {
+        transform:
+          translate3d(0px, 0px, 0px) rotate(0deg);
+      }
+
+      100%
+      {
+        transform:
+          translate3d(24px, -18px, 0px) rotate(18deg);
+      }
+    }
+
+    @keyframes slowSpin
+    {
+      from
+      {
+        transform:
+          rotate(0deg) scale(1);
+      }
+
+      to
+      {
+        transform:
+          rotate(360deg) scale(1.05);
+      }
+    }
+
+    @keyframes shimmer
+    {
+      0%
+      {
+        background-position:
+          0% 50%;
+      }
+
+      100%
+      {
+        background-position:
+          100% 50%;
+      }
+    }
+
+    @keyframes revealUp
+    {
+      from
+      {
+        opacity:
+          0;
+        transform:
+          translateY(36px);
+      }
+
+      to
+      {
+        opacity:
+          1;
+        transform:
+          translateY(0px);
+      }
+    }
+
+    .container
+    {
+      width:
+        min(1200px, 92%);
+      margin:
+        0 auto;
+      position:
+        relative;
+      z-index:
+        1;
+    }
+
+    .site-header
+    {
+      position:
+        sticky;
+      top:
+        0;
+      z-index:
+        20;
+      backdrop-filter:
+        blur(18px);
+      background:
+        linear-gradient(180deg, rgba(6, 12, 25, 0.78), rgba(8, 14, 30, 0.58));
+      border-bottom:
+        1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .site-header::after
+    {
+      content:
+        "";
+      position:
+        absolute;
+      inset:
+        auto 0 0 0;
+      height:
+        1px;
+      background:
+        linear-gradient(90deg, transparent, rgba(184,238,255,0.26), rgba(210,180,255,0.16), transparent);
+    }
+
+    .nav
+    {
+      min-height:
+        80px;
+      display:
+        flex;
+      align-items:
+        center;
+      justify-content:
+        space-between;
+      gap:
+        24px;
+    }
+
+    .logo
+    {
+      display:
+        inline-flex;
+      align-items:
+        center;
+      gap:
+        14px;
+      font-family:
+        "Space Grotesk",
+        sans-serif;
+      letter-spacing:
+        0.14em;
+      text-transform:
+        uppercase;
+      font-size:
+        1rem;
+      color:
+        rgba(244, 251, 255, 0.98);
+    }
+
+    .logo-mark
+    {
+      width:
+        48px;
+      height:
+        48px;
+      flex:
+        0 0 auto;
+      display:
+        grid;
+      place-items:
+        center;
+      position:
+        relative;
+      border-radius:
+        18px 22px 16px 26px;
+      background:
+        linear-gradient(135deg, rgba(227, 251, 255, 0.92), rgba(205, 225, 255, 0.88), rgba(242, 197, 255, 0.84));
+      color:
+        #0d1732;
+      font-weight:
+        700;
+      font-size:
+        1.1rem;
+      box-shadow:
+        inset 0 1px 2px rgba(255,255,255,0.86),
+        inset 0 -10px 30px rgba(255,255,255,0.18),
+        0 10px 30px rgba(115, 185, 255, 0.18);
+      overflow:
+        hidden;
+      border:
+        1px solid rgba(255,255,255,0.55);
+    }
+
+    .logo-mark::before
+    {
+      content:
+        "";
+      position:
+        absolute;
+      inset:
+        8px;
+      border-radius:
+        14px 18px 12px 20px;
+      background:
+        linear-gradient(160deg, rgba(255,255,255,0.36), transparent 48%, rgba(255,255,255,0.18));
+      mix-blend-mode:
+        screen;
+      pointer-events:
+        none;
+    }
+
+    .logo-mark::after
+    {
+      content:
+        "";
+      position:
+        absolute;
+      left:
+        18%;
+      top:
+        10%;
+      width:
+        62%;
+      height:
+        28%;
+      border-radius:
+        999px;
+      background:
+        linear-gradient(90deg, rgba(255,255,255,0.68), rgba(255,255,255,0.08));
+      filter:
+        blur(2px);
+      opacity:
+        0.88;
+      transform:
+        rotate(-12deg);
+    }
+
+    .logo-text
+    {
+      display:
+        flex;
+      flex-direction:
+        column;
+      gap:
+        1px;
+    }
+
+    .logo-title
+    {
+      font-size:
+        0.92rem;
+      font-weight:
+        700;
+    }
+
+    .logo-sub
+    {
+      font-size:
+        0.72rem;
+      color:
+        var(--text-dim);
+      letter-spacing:
+        0.12em;
+    }
+
+    .nav-links
+    {
+      display:
+        flex;
+      flex-wrap:
+        wrap;
+      align-items:
+        center;
+      gap:
+        18px 24px;
+      list-style:
+        none;
+      font-size:
+        0.95rem;
+    }
+
+    .nav-links a
+    {
+      position:
+        relative;
+      color:
+        var(--text-soft);
+      transition:
+        color 0.25s ease;
+    }
+
+    .nav-links a::after
+    {
+      content:
+        "";
+      position:
+        absolute;
+      left:
+        0;
+      bottom:
+        -8px;
+      width:
+        0%;
+      height:
+        2px;
+      border-radius:
+        999px;
+      background:
+        linear-gradient(90deg, rgba(194,244,255,0.95), rgba(189, 183, 255, 0.90), rgba(255, 187, 234, 0.90), rgba(255, 225, 182, 0.80));
+      transition:
+        width 0.28s ease;
+      box-shadow:
+        0 0 18px rgba(181, 236, 255, 0.22);
+    }
+
+    .nav-links a:hover
+    {
+      color:
+        rgba(255,255,255,0.98);
+    }
+
+    .nav-links a:hover::after
+    {
+      width:
+        100%;
+    }
+
+    .hero
+    {
+      min-height:
+        100vh;
+      display:
+        flex;
+      align-items:
+        center;
+      padding:
+        92px 0 72px;
+      position:
+        relative;
+    }
+
+    .hero-grid
+    {
+      display:
+        grid;
+      grid-template-columns:
+        1.14fr 0.86fr;
+      gap:
+        40px;
+      align-items:
+        center;
+    }
+
+    .eyebrow
+    {
+      display:
+        inline-flex;
+      align-items:
+        center;
+      gap:
+        12px;
+      padding:
+        10px 16px;
+      border-radius:
+        999px;
+      border:
+        1px solid rgba(255,255,255,0.16);
+      background:
+        linear-gradient(90deg, rgba(195,244,255,0.08), rgba(184,181,255,0.08), rgba(255,191,236,0.08));
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.14),
+        0 10px 30px rgba(0,0,0,0.12);
+      color:
+        rgba(242, 249, 255, 0.94);
+      font-family:
+        "JetBrains Mono",
+        monospace;
+      font-size:
+        0.82rem;
+      letter-spacing:
+        0.06em;
+      text-transform:
+        uppercase;
+      margin-bottom:
+        22px;
+    }
+
+    .eyebrow-dot
+    {
+      width:
+        8px;
+      height:
+        8px;
+      border-radius:
+        50%;
+      background:
+        radial-gradient(circle, rgba(255,255,255,1), rgba(176,236,255,0.6) 45%, rgba(212,177,255,0.4) 70%, transparent 78%);
+      box-shadow:
+        0 0 12px rgba(184, 240, 255, 0.6);
+    }
+
+    .hero-title
+    {
+      font-family:
+        "Cormorant Garamond",
+        serif;
+      font-size:
+        clamp(3.8rem, 6vw, 6.2rem);
+      line-height:
+        0.95;
+      letter-spacing:
+        -0.045em;
+      margin-bottom:
+        20px;
+      color:
+        rgba(245, 251, 255, 0.98);
+      text-wrap:
+        balance;
+    }
+
+    .hero-title .gradient-line
+    {
+      display:
+        inline-block;
+      background:
+        linear-gradient(90deg, rgba(255,255,255,0.98), rgba(197,246,255,0.96), rgba(196,189,255,0.95), rgba(255,197,237,0.96), rgba(255, 227, 192, 0.94));
+      -webkit-background-clip:
+        text;
+      -webkit-text-fill-color:
+        transparent;
+      background-size:
+        180% 180%;
+      animation:
+        shimmer 12s ease infinite alternate;
+    }
+
+    .hero-subtitle
+    {
+      max-width:
+        760px;
+      font-size:
+        1.08rem;
+      color:
+        var(--text-soft);
+      margin-bottom:
+        26px;
+      text-wrap:
+        pretty;
+    }
+
+    .hero-tag-row
+    {
+      display:
+        flex;
+      flex-wrap:
+        wrap;
+      gap:
+        12px;
+      margin-bottom:
+        32px;
+    }
+
+    .hero-tag
+    {
+      padding:
+        10px 16px;
+      border-radius:
+        999px;
+      font-family:
+        "JetBrains Mono",
+        monospace;
+      font-size:
+        0.82rem;
+      letter-spacing:
+        0.02em;
+      color:
+        rgba(240, 249, 255, 0.96);
+      border:
+        1px solid rgba(255,255,255,0.12);
+      background:
+        rgba(255,255,255,0.05);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.08);
+      transition:
+        transform 0.22s ease,
+        border-color 0.22s ease,
+        background 0.22s ease;
+    }
+
+    .hero-tag:hover
+    {
+      transform:
+        translateY(-2px);
+      border-color:
+        rgba(255,255,255,0.20);
+      background:
+        rgba(255,255,255,0.08);
+    }
+
+    .hero-actions
+    {
+      display:
+        flex;
+      flex-wrap:
+        wrap;
+      gap:
+        14px;
+    }
+
+    .btn
+    {
+      display:
+        inline-flex;
+      align-items:
+        center;
+      justify-content:
+        center;
+      min-height:
+        54px;
+      padding:
+        0 22px;
+      border-radius:
+        999px;
+      border:
+        1px solid transparent;
+      font-weight:
+        600;
+      font-size:
+        0.98rem;
+      cursor:
+        pointer;
+      transition:
+        transform 0.24s ease,
+        box-shadow 0.24s ease,
+        border-color 0.24s ease,
+        background 0.24s ease;
+    }
+
+    .btn-primary
+    {
+      color:
+        #07122a;
+      background:
+        linear-gradient(135deg, rgba(234, 251, 255, 0.96), rgba(193, 240, 255, 0.95), rgba(219, 190, 255, 0.92), rgba(255, 205, 238, 0.92));
+      box-shadow:
+        0 18px 40px rgba(108, 188, 255, 0.22),
+        0 10px 28px rgba(0,0,0,0.10);
+      position:
+        relative;
+      overflow:
+        hidden;
+    }
+
+    .btn-primary::before
+    {
+      content:
+        "";
+      position:
+        absolute;
+      inset:
+        1px;
+      border-radius:
+        inherit;
+      background:
+        linear-gradient(160deg, rgba(255,255,255,0.42), transparent 44%, rgba(255,255,255,0.18));
+      opacity:
+        0.85;
+    }
+
+    .btn-secondary
+    {
+      color:
+        var(--text-main);
+      background:
+        rgba(255,255,255,0.04);
+      border-color:
+        rgba(255,255,255,0.14);
+      backdrop-filter:
+        blur(10px);
+    }
+
+    .btn:hover
+    {
+      transform:
+        translateY(-3px);
+    }
+
+    .hero-panel-stack
+    {
+      display:
+        grid;
+      gap:
+        18px;
+    }
+
+    .glass-panel
+    {
+      position:
+        relative;
+      border-radius:
+        var(--radius-lg);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.045));
+      border:
+        1px solid rgba(255,255,255,0.12);
+      backdrop-filter:
+        blur(18px) saturate(140%);
+      box-shadow:
+        var(--shadow-soft);
+      overflow:
+        hidden;
+      isolation:
+        isolate;
+    }
+
+    .glass-panel::before
+    {
+      content:
+        "";
+      position:
+        absolute;
+      inset:
+        0;
+      background:
+        radial-gradient(circle at var(--shine-x, 50%) var(--shine-y, 50%), rgba(255,255,255,0.18), transparent 26%),
+        linear-gradient(135deg, rgba(205,245,255,0.08), transparent 34%, rgba(244,196,255,0.06) 72%, transparent 100%);
+      pointer-events:
+        none;
+      z-index:
+        0;
+    }
+
+    .tilt-card
+    {
+      transform-style:
+        preserve-3d;
+      transition:
+        transform 0.18s ease-out;
+      will-change:
+        transform;
+    }
+
+    .panel-topbar
+    {
+      display:
+        flex;
+      align-items:
+        center;
+      gap:
+        8px;
+      min-height:
+        52px;
+      padding:
+        0 20px;
+      border-bottom:
+        1px solid rgba(255,255,255,0.08);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
+      position:
+        relative;
+      z-index:
+        1;
+    }
+
+    .panel-dot
+    {
+      width:
+        10px;
+      height:
+        10px;
+      border-radius:
+        50%;
+      box-shadow:
+        0 0 14px rgba(255,255,255,0.10);
+    }
+
+    .panel-dot-cyan
+    {
+      background:
+        rgba(178, 239, 255, 0.98);
+      box-shadow:
+        0 0 16px rgba(178,239,255,0.46);
+    }
+
+    .panel-dot-violet
+    {
+      background:
+        rgba(204, 185, 255, 0.98);
+      box-shadow:
+        0 0 16px rgba(204,185,255,0.42);
+    }
+
+    .panel-dot-pink
+    {
+      background:
+        rgba(255, 196, 230, 0.98);
+      box-shadow:
+        0 0 16px rgba(255,196,230,0.42);
+    }
+
+    .panel-content
+    {
+      padding:
+        24px 24px 26px;
+      position:
+        relative;
+      z-index:
+        1;
+    }
+
+    .panel-title
+    {
+      font-family:
+        "Space Grotesk",
+        sans-serif;
+      font-size:
+        1.02rem;
+      font-weight:
+        700;
+      letter-spacing:
+        0.03em;
+      margin-bottom:
+        14px;
+      color:
+        rgba(248, 252, 255, 0.98);
+    }
+
+    .scan-line
+    {
+      font-family:
+        "JetBrains Mono",
+        monospace;
+      font-size:
+        0.88rem;
+      color:
+        rgba(214, 240, 255, 0.94);
+      margin-bottom:
+        9px;
+      letter-spacing:
+        0.02em;
+      text-wrap:
+        balance;
+    }
+
+    .hero-mini-grid
+    {
+      display:
+        grid;
+      grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+      gap:
+        18px;
+    }
+
+    .hero-mini
+    {
+      min-height:
+        130px;
+      padding:
+        20px;
+      border-radius:
+        var(--radius-md);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.07), rgba(255,255,255,0.04));
+      border:
+        1px solid rgba(255,255,255,0.10);
+      box-shadow:
+        var(--shadow-soft);
+      position:
+        relative;
+      overflow:
+        hidden;
+    }
+
+    .hero-mini::before
+    {
+      content:
+        "";
+      position:
+        absolute;
+      top:
+        -40px;
+      right:
+        -20px;
+      width:
+        120px;
+      height:
+        120px;
+      border-radius:
+        50%;
+      background:
+        radial-gradient(circle, rgba(196,244,255,0.16), transparent 64%);
+      pointer-events:
+        none;
+    }
+
+    .hero-mini h3
+    {
+      font-family:
+        "Space Grotesk",
+        sans-serif;
+      font-size:
+        1rem;
+      margin-bottom:
+        8px;
+    }
+
+    .hero-mini p
+    {
+      color:
+        var(--text-dim);
+      font-size:
+        0.95rem;
+      margin:
+        0;
+    }
+
+    .section
+    {
+      position:
+        relative;
+      padding:
+        96px 0;
+    }
+
+    .section::before
+    {
+      content:
+        "";
+      position:
+        absolute;
+      left:
+        50%;
+      top:
+        0;
+      transform:
+        translateX(-50%);
+      width:
+        min(1200px, 92%);
+      height:
+        1px;
+      background:
+        linear-gradient(90deg, transparent, rgba(255,255,255,0.10), transparent);
+    }
+
+    .section-header
+    {
+      display:
+        flex;
+      flex-direction:
+        column;
+      gap:
+        16px;
+      margin-bottom:
+        36px;
+    }
+
+    .section-label
+    {
+      display:
+        inline-flex;
+      width:
+        max-content;
+      padding:
+        8px 14px;
+      border-radius:
+        999px;
+      background:
+        rgba(255,255,255,0.04);
+      border:
+        1px solid rgba(255,255,255,0.12);
+      font-family:
+        "JetBrains Mono",
+        monospace;
+      font-size:
+        0.82rem;
+      letter-spacing:
+        0.08em;
+      text-transform:
+        uppercase;
+      color:
+        rgba(216, 238, 255, 0.96);
+    }
+
+    .section-title
+    {
+      font-family:
+        "Cormorant Garamond",
+        serif;
+      font-size:
+        clamp(2.5rem, 4vw, 4rem);
+      line-height:
+        0.95;
+      letter-spacing:
+        -0.035em;
+      max-width:
+        840px;
+      color:
+        rgba(248, 252, 255, 0.98);
+    }
+
+    .section-title .tint
+    {
+      background:
+        linear-gradient(90deg, rgba(255,255,255,0.98), rgba(196,244,255,0.96), rgba(196,189,255,0.96), rgba(255,196,230,0.96));
+      -webkit-background-clip:
+        text;
+      -webkit-text-fill-color:
+        transparent;
+    }
+
+    .section-copy
+    {
+      max-width:
+        820px;
+      color:
+        var(--text-soft);
+      font-size:
+        1.02rem;
+    }
+
+    .about-grid
+    {
+      display:
+        grid;
+      grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+      gap:
+        22px;
+    }
+
+    .about-card
+    {
+      min-height:
+        280px;
+      padding:
+        28px;
+    }
+
+    .about-card h3
+    {
+      font-family:
+        "Space Grotesk",
+        sans-serif;
+      font-size:
+        1.18rem;
+      margin-bottom:
+        14px;
+    }
+
+    .accent-rule
+    {
+      width:
+        72px;
+      height:
+        6px;
+      border-radius:
+        999px;
+      margin-bottom:
+        18px;
+      background:
+        linear-gradient(90deg, rgba(194,244,255,0.94), rgba(194,190,255,0.92), rgba(255,193,236,0.90), rgba(255, 228, 188, 0.84));
+      box-shadow:
+        0 0 18px rgba(194,244,255,0.16);
+    }
+
+    .about-card p
+    {
+      color:
+        var(--text-soft);
+      margin-bottom:
+        12px;
+      text-wrap:
+        pretty;
+    }
+
+    .render-pass-grid
+    {
+      display:
+        grid;
+      grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+      gap:
+        18px;
+      margin-top:
+        34px;
+    }
+
+    .render-pass-card
+    {
+      position:
+        relative;
+      min-height:
+        190px;
+      padding:
+        22px;
+      border-radius:
+        22px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
+      border:
+        1px solid rgba(255,255,255,0.10);
+      backdrop-filter:
+        blur(14px);
+      box-shadow:
+        var(--shadow-soft);
+      overflow:
+        hidden;
+    }
+
+    .render-pass-card::before
+    {
+      content:
+        "";
+      position:
+        absolute;
+      inset:
+        0;
+      background:
+        linear-gradient(135deg, rgba(196,244,255,0.10), transparent 36%, rgba(255,191,236,0.06) 68%, transparent 100%);
+      pointer-events:
+        none;
+    }
+
+    .render-pass-line
+    {
+      width:
+        100%;
+      height:
+        2px;
+      margin-bottom:
+        18px;
+      border-radius:
+        999px;
+      background:
+        linear-gradient(90deg, rgba(194,244,255,0.95), rgba(194,189,255,0.92), rgba(255,191,236,0.90), transparent);
+      box-shadow:
+        0 0 18px rgba(194,244,255,0.18);
+    }
+
+    .render-pass-card h3
+    {
+      font-family:
+        "Space Grotesk",
+        sans-serif;
+      font-size:
+        1.02rem;
+      margin-bottom:
+        10px;
+      color:
+        rgba(248,252,255,0.98);
+    }
+
+    .render-pass-card p
+    {
+      color:
+        var(--text-dim);
+      font-size:
+        0.95rem;
+    }
+
+    .tech-grid
+    {
+      display:
+        grid;
+      grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+      gap:
+        20px;
+    }
+
+    .tech-card
+    {
+      position:
+        relative;
+      min-height:
+        220px;
+      padding:
+        24px;
+      border-radius:
+        24px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.07), rgba(255,255,255,0.045));
+      border:
+        1px solid rgba(255,255,255,0.10);
+      backdrop-filter:
+        blur(16px);
+      box-shadow:
+        var(--shadow-soft);
+      overflow:
+        hidden;
+      transition:
+        transform 0.28s ease,
+        border-color 0.28s ease,
+        box-shadow 0.28s ease;
+    }
+
+    .tech-card::before
+    {
+      content:
+        "";
+      position:
+        absolute;
+      inset:
+        auto -20px -24px auto;
+      width:
+        140px;
+      height:
+        140px;
+      border-radius:
+        50%;
+      background:
+        radial-gradient(circle, rgba(192,245,255,0.12), transparent 68%);
+      pointer-events:
+        none;
+    }
+
+    .tech-card:hover
+    {
+      transform:
+        translateY(-6px);
+      border-color:
+        rgba(255,255,255,0.18);
+      box-shadow:
+        var(--shadow-deep);
+    }
+
+    .tech-card-top
+    {
+      display:
+        flex;
+      align-items:
+        center;
+      gap:
+        14px;
+      margin-bottom:
+        16px;
+    }
+
+    .tech-glyph
+    {
+      width:
+        64px;
+      height:
+        64px;
+      flex:
+        0 0 auto;
+      display:
+        grid;
+      place-items:
+        center;
+      border-radius:
+        22px 26px 18px 28px;
+      font-family:
+        "JetBrains Mono",
+        monospace;
+      font-size:
+        0.98rem;
+      font-weight:
+        700;
+      color:
+        #08142d;
+      background:
+        linear-gradient(135deg, rgba(234,251,255,0.98), rgba(189,238,255,0.95), rgba(208,190,255,0.92), rgba(255,200,236,0.90));
+      box-shadow:
+        inset 0 1px 2px rgba(255,255,255,0.92),
+        inset 0 -10px 20px rgba(255,255,255,0.18),
+        0 18px 30px rgba(113, 188, 255, 0.16);
+      border:
+        1px solid rgba(255,255,255,0.56);
+      position:
+        relative;
+      overflow:
+        hidden;
+    }
+
+    .tech-glyph::before
+    {
+      content:
+        "";
+      position:
+        absolute;
+      left:
+        14%;
+      top:
+        8%;
+      width:
+        70%;
+      height:
+        24%;
+      border-radius:
+        999px;
+      background:
+        linear-gradient(90deg, rgba(255,255,255,0.74), rgba(255,255,255,0.08));
+      opacity:
+        0.88;
+      transform:
+        rotate(-14deg);
+    }
+
+    .tech-card h3
+    {
+      font-family:
+        "Space Grotesk",
+        sans-serif;
+      font-size:
+        1.08rem;
+      color:
+        rgba(248,252,255,0.98);
+    }
+
+    .tech-card p
+    {
+      color:
+        var(--text-soft);
+      font-size:
+        0.97rem;
+    }
+
+    .projects-grid
+    {
+      display:
+        grid;
+      grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+      gap:
+        24px;
+    }
+
+    .project-card
+    {
+      position:
+        relative;
+      border-radius:
+        28px;
+      overflow:
+        hidden;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.07), rgba(255,255,255,0.04));
+      border:
+        1px solid rgba(255,255,255,0.10);
+      backdrop-filter:
+        blur(16px);
+      box-shadow:
+        var(--shadow-soft);
+      transition:
+        transform 0.30s ease,
+        box-shadow 0.30s ease,
+        border-color 0.30s ease;
+    }
+
+    .project-card:hover
+    {
+      transform:
+        translateY(-8px);
+      border-color:
+        rgba(255,255,255,0.18);
+      box-shadow:
+        var(--shadow-deep);
+    }
+
+    .project-visual
+    {
+      position:
+        relative;
+      min-height:
+        280px;
+      padding:
+        18px;
+      display:
+        flex;
+      align-items:
+        flex-end;
+      border-bottom:
+        1px solid rgba(255,255,255,0.08);
+      overflow:
+        hidden;
+      isolation:
+        isolate;
+    }
+
+    .project-visual-1
+    {
+      background:
+        radial-gradient(circle at 12% 14%, rgba(196,245,255,0.20), transparent 26%),
+        radial-gradient(circle at 82% 18%, rgba(194,190,255,0.20), transparent 28%),
+        radial-gradient(circle at 74% 78%, rgba(255,188,236,0.16), transparent 22%),
+        linear-gradient(160deg, rgba(12, 22, 44, 0.98), rgba(11, 18, 34, 0.98));
+    }
+
+    .project-visual-2
+    {
+      background:
+        radial-gradient(circle at 14% 10%, rgba(198,245,255,0.16), transparent 24%),
+        radial-gradient(circle at 88% 14%, rgba(255,228,188,0.14), transparent 24%),
+        radial-gradient(circle at 68% 76%, rgba(207,189,255,0.14), transparent 22%),
+        linear-gradient(160deg, rgba(13, 20, 42, 0.98), rgba(10, 18, 34, 0.98));
+    }
+
+    .project-visual-3
+    {
+      background:
+        radial-gradient(circle at 10% 14%, rgba(183,255,243,0.16), transparent 24%),
+        radial-gradient(circle at 88% 16%, rgba(194,190,255,0.18), transparent 24%),
+        radial-gradient(circle at 74% 80%, rgba(255,191,236,0.18), transparent 22%),
+        linear-gradient(160deg, rgba(14, 20, 42, 0.98), rgba(10, 16, 34, 0.98));
+    }
+
+    .project-visual::before
+    {
+      content:
+        "";
+      position:
+        absolute;
+      inset:
+        0;
+      background:
+        linear-gradient(rgba(255,255,255,0.028) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.028) 1px, transparent 1px);
+      background-size:
+        28px 28px;
+      opacity:
+        0.36;
+      z-index:
+        0;
+    }
+
+    .project-aura
+    {
+      position:
+        absolute;
+      inset:
+        auto -10% -8% -10%;
+      height:
+        150px;
+      background:
+        radial-gradient(circle at 15% 40%, rgba(196,245,255,0.22), transparent 16%),
+        radial-gradient(circle at 38% 70%, rgba(194,190,255,0.18), transparent 16%),
+        radial-gradient(circle at 63% 30%, rgba(255,191,236,0.18), transparent 16%),
+        radial-gradient(circle at 84% 60%, rgba(255,228,188,0.14), transparent 16%);
+      filter:
+        blur(14px);
+      z-index:
+        0;
+    }
+
+    .project-badge
+    {
+      position:
+        relative;
+      z-index:
+        1;
+      display:
+        inline-flex;
+      align-items:
+        center;
+      min-height:
+        40px;
+      padding:
+        0 14px;
+      border-radius:
+        999px;
+      background:
+        rgba(255,255,255,0.08);
+      border:
+        1px solid rgba(255,255,255,0.16);
+      color:
+        rgba(246, 251, 255, 0.98);
+      font-family:
+        "JetBrains Mono",
+        monospace;
+      font-size:
+        0.80rem;
+      letter-spacing:
+        0.04em;
+      text-transform:
+        uppercase;
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.12);
+    }
+
+    .project-scan
+    {
+      position:
+        absolute;
+      inset:
+        0;
+      background:
+        linear-gradient(180deg, transparent 0%, rgba(255,255,255,0.04) 46%, transparent 52%);
+      transform:
+        translateY(-100%);
+      animation:
+        projectScan 8s linear infinite;
+      z-index:
+        1;
+      pointer-events:
+        none;
+    }
+
+    @keyframes projectScan
+    {
+      0%
+      {
+        transform:
+          translateY(-110%);
+      }
+
+      100%
+      {
+        transform:
+          translateY(110%);
+      }
+    }
+
+    .project-ice-svg
+    {
+      position:
+        absolute;
+      inset:
+        auto 0 0 0;
+      width:
+        100%;
+      height:
+        auto;
+      opacity:
+        0.90;
+      z-index:
+        0;
+      filter:
+        drop-shadow(0 0 12px rgba(188,236,255,0.16));
+    }
+
+    .project-content
+    {
+      padding:
+        24px;
+    }
+
+    .project-content h3
+    {
+      font-family:
+        "Space Grotesk",
+        sans-serif;
+      font-size:
+        1.16rem;
+      margin-bottom:
+        10px;
+      color:
+        rgba(248,252,255,0.98);
+    }
+
+    .project-content p
+    {
+      color:
+        var(--text-soft);
+      margin-bottom:
+        14px;
+      min-height:
+        118px;
+      text-wrap:
+        pretty;
+    }
+
+    .mini-tag-row
+    {
+      display:
+        flex;
+      flex-wrap:
+        wrap;
+      gap:
+        8px;
+      margin-bottom:
+        16px;
+    }
+
+    .mini-tag
+    {
+      display:
+        inline-flex;
+      align-items:
+        center;
+      min-height:
+        32px;
+      padding:
+        0 12px;
+      border-radius:
+        999px;
+      font-family:
+        "JetBrains Mono",
+        monospace;
+      font-size:
+        0.76rem;
+      color:
+        rgba(240,248,255,0.96);
+      background:
+        rgba(255,255,255,0.06);
+      border:
+        1px solid rgba(255,255,255,0.10);
+    }
+
+    .project-link
+    {
+      font-family:
+        "Space Grotesk",
+        sans-serif;
+      font-size:
+        0.98rem;
+      font-weight:
+        700;
+      color:
+        rgba(248,252,255,0.98);
+      background:
+        linear-gradient(90deg, rgba(255,255,255,0.98), rgba(194,244,255,0.96), rgba(194,189,255,0.95), rgba(255,191,236,0.95));
+      -webkit-background-clip:
+        text;
+      -webkit-text-fill-color:
+        transparent;
+      transition:
+        opacity 0.24s ease;
+    }
+
+    .project-link:hover
+    {
+      opacity:
+        0.76;
+    }
+
+    .project-link-muted
+    {
+      cursor:
+        default;
+    }
+
+    .philosophy-grid
+    {
+      display:
+        grid;
+      grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+      gap:
+        20px;
+    }
+
+    .philosophy-card
+    {
+      min-height:
+        232px;
+      padding:
+        24px;
+      border-radius:
+        24px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.035));
+      border:
+        1px solid rgba(255,255,255,0.10);
+      backdrop-filter:
+        blur(14px);
+      box-shadow:
+        var(--shadow-soft);
+      position:
+        relative;
+      overflow:
+        hidden;
+    }
+
+    .philosophy-card::before
+    {
+      content:
+        "";
+      position:
+        absolute;
+      inset:
+        auto -14px -28px auto;
+      width:
+        130px;
+      height:
+        130px;
+      border-radius:
+        50%;
+      background:
+        radial-gradient(circle, rgba(196,244,255,0.10), transparent 68%);
+      pointer-events:
+        none;
+    }
+
+    .frost-rule
+    {
+      width:
+        86px;
+      height:
+        5px;
+      border-radius:
+        999px;
+      margin-bottom:
+        16px;
+      background:
+        linear-gradient(90deg, rgba(194,244,255,0.96), rgba(194,189,255,0.92), rgba(255,191,236,0.88), rgba(255,228,188,0.76));
+    }
+
+    .philosophy-card h3
+    {
+      font-family:
+        "Cormorant Garamond",
+        serif;
+      font-size:
+        1.38rem;
+      line-height:
+        1.0;
+      margin-bottom:
+        12px;
+      color:
+        rgba(248,252,255,0.98);
+      letter-spacing:
+        -0.02em;
+    }
+
+    .philosophy-card p
+    {
+      color:
+        var(--text-soft);
+      font-size:
+        0.98rem;
+      text-wrap:
+        pretty;
+    }
+
+    .contact-grid
+    {
+      display:
+        grid;
+      grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+      gap:
+        20px;
+    }
+
+    .contact-card
+    {
+      min-height:
+        190px;
+      padding:
+        24px;
+    }
+
+    .contact-card h3
+    {
+      font-family:
+        "Space Grotesk",
+        sans-serif;
+      font-size:
+        1.08rem;
+      margin-bottom:
+        10px;
+    }
+
+    .contact-card p,
+    .contact-card a
+    {
+      color:
+        var(--text-soft);
+      word-break:
+        break-word;
+    }
+
+    .contact-card a:hover
+    {
+      color:
+        rgba(255,255,255,0.98);
+    }
+
+    .footer
+    {
+      position:
+        relative;
+      padding:
+        28px 0 40px;
+      text-align:
+        center;
+      color:
+        rgba(156, 178, 210, 0.92);
+      border-top:
+        1px solid rgba(255,255,255,0.08);
+      background:
+        rgba(0,0,0,0.12);
+      font-size:
+        0.96rem;
+    }
+
+    [data-reveal]
+    {
+      opacity:
+        0;
+      transform:
+        translateY(30px);
+    }
+
+    [data-reveal].is-visible
+    {
+      animation:
+        revealUp 0.82s cubic-bezier(.2,.8,.2,1) forwards;
+    }
+
+    @media (max-width: 1120px)
+    {
       .hero-grid,
-      .grid-2,
-      .grid-3,
-      .grid-4,
-      .projects-grid {
-        grid-template-columns: 1fr;
+      .about-grid,
+      .render-pass-grid,
+      .tech-grid,
+      .projects-grid,
+      .philosophy-grid,
+      .contact-grid
+      {
+        grid-template-columns:
+          1fr;
       }
 
-      .hero h1 {
-        font-size: 2.9rem;
+      .hero
+      {
+        min-height:
+          auto;
+      }
+
+      .hero-mini-grid
+      {
+        grid-template-columns:
+          1fr;
       }
     }
 
-    @media (max-width: 640px) {
-      .nav {
-        flex-direction: column;
-        align-items: flex-start;
+    @media (max-width: 720px)
+    {
+      .nav
+      {
+        flex-direction:
+          column;
+        align-items:
+          flex-start;
+        padding:
+          16px 0;
       }
 
-      .nav-links {
-        gap: 16px;
+      .hero
+      {
+        padding-top:
+          110px;
       }
 
-      .hero {
-        min-height: auto;
-        padding-top: 76px;
+      .hero-actions
+      {
+        width:
+          100%;
       }
 
-      .hero h1 {
-        font-size: 2.2rem;
-      }
-
-      .mini-grid {
-        grid-template-columns: 1fr;
+      .btn
+      {
+        width:
+          100%;
       }
     }
+
+
   </style>
 </head>
 <body>
-  <header>
-    <div class="container nav">
-      <div class="logo">Wang Che</div>
-      <nav class="nav-links">
-        <a href="#home">Home</a>
-        <a href="#about">About</a>
-        <a href="#focus">Focus</a>
-        <a href="#projects">Projects</a>
-        <a href="#learning">Learning</a>
-        <a href="#contact">Contact</a>
+  <canvas
+    class="ambient-canvas"
+    data-ambient-canvas
+  ></canvas>
+
+  <div
+    class="cursor-glow"
+    data-cursor-glow
+    aria-hidden="true"
+  ></div>
+
+  <div
+    class="trail-layer"
+    data-trail-layer
+    aria-hidden="true"
+  >
+
+  </div>
+
+  <div
+    class="bg-layer"
+    aria-hidden="true"
+  >
+    <div
+      class="bg-aurora"
+    ></div>
+    <div
+      class="bg-frost-map"
+    >
+      <svg
+        viewBox="0 0 1440 900"
+        preserveAspectRatio="none"
+      >
+        <defs>
+          <linearGradient
+            id="shardStroke"
+            x1="0%"
+            y1="0%"
+            x2="100%"
+            y2="100%"
+          >
+            <stop
+              offset="0%"
+              stop-color="rgba(215,246,255,0.26)"
+            ></stop>
+            <stop
+              offset="50%"
+              stop-color="rgba(194,182,255,0.18)"
+            ></stop>
+            <stop
+              offset="100%"
+              stop-color="rgba(255,197,236,0.14)"
+            ></stop>
+          </linearGradient>
+        </defs>
+            <path
+              d="M57,43 L130,72 L94,20 Z"
+              fill="rgba(210,244,255,0.11)"
+              stroke="rgba(255,255,255,0.12)"
+              stroke-width="1"
+            ></path>
+            <path
+              d="M114,86 L200,124 L168,70 Z"
+              fill="rgba(210,244,255,0.14)"
+              stroke="rgba(255,255,255,0.12)"
+              stroke-width="1"
+            ></path>
+            <path
+              d="M171,129 L270,176 L242,120 Z"
+              fill="rgba(210,244,255,0.17)"
+              stroke="rgba(255,255,255,0.12)"
+              stroke-width="1"
+            ></path>
+            <path
+              d="M228,172 L340,228 L316,170 Z"
+              fill="rgba(210,244,255,0.08)"
+              stroke="rgba(255,255,255,0.12)"
+              stroke-width="1"
+            ></path>
+            <path
+              d="M285,215 L410,280 L320,220 Z"
+              fill="rgba(210,244,255,0.11)"
+              stroke="rgba(255,255,255,0.12)"
+              stroke-width="1"
+            ></path>
+            <path
+              d="M342,258 L480,332 L394,270 Z"
+              fill="rgba(210,244,255,0.14)"
+              stroke="rgba(255,255,255,0.12)"
+              stroke-width="1"
+            ></path>
+            <path
+              d="M399,301 L470,324 L468,320 Z"
+              fill="rgba(210,244,255,0.17)"
+              stroke="rgba(255,255,255,0.12)"
+              stroke-width="1"
+            ></path>
+            <path
+              d="M456,344 L540,376 L542,370 Z"
+              fill="rgba(210,244,255,0.08)"
+              stroke="rgba(255,255,255,0.12)"
+              stroke-width="1"
+            ></path>
+            <path
+              d="M513,387 L610,428 L546,420 Z"
+              fill="rgba(210,244,255,0.11)"
+              stroke="rgba(255,255,255,0.12)"
+              stroke-width="1"
+            ></path>
+            <path
+              d="M570,430 L680,480 L620,470 Z"
+              fill="rgba(210,244,255,0.14)"
+              stroke="rgba(255,255,255,0.12)"
+              stroke-width="1"
+            ></path>
+      </svg>
+    </div>
+      <div
+        class="bg-crystal bg-crystal-violet"
+        style="
+          left:9%;
+          top:17%;
+          width:22px;
+          height:22px;
+          animation-delay:0.23s;
+          animation-duration:10s;
+        "
+      ></div>
+      <div
+        class="bg-crystal bg-crystal-pink"
+        style="
+          left:18%;
+          top:34%;
+          width:26px;
+          height:26px;
+          animation-delay:0.46s;
+          animation-duration:11s;
+        "
+      ></div>
+      <div
+        class="bg-crystal bg-crystal-silver"
+        style="
+          left:27%;
+          top:51%;
+          width:30px;
+          height:30px;
+          animation-delay:0.69s;
+          animation-duration:12s;
+        "
+      ></div>
+      <div
+        class="bg-crystal bg-crystal-mint"
+        style="
+          left:36%;
+          top:68%;
+          width:34px;
+          height:34px;
+          animation-delay:0.92s;
+          animation-duration:13s;
+        "
+      ></div>
+      <div
+        class="bg-crystal bg-crystal-cyan"
+        style="
+          left:45%;
+          top:85%;
+          width:38px;
+          height:38px;
+          animation-delay:1.15s;
+          animation-duration:9s;
+        "
+      ></div>
+      <div
+        class="bg-crystal bg-crystal-violet"
+        style="
+          left:54%;
+          top:2%;
+          width:42px;
+          height:42px;
+          animation-delay:1.38s;
+          animation-duration:10s;
+        "
+      ></div>
+      <div
+        class="bg-crystal bg-crystal-pink"
+        style="
+          left:63%;
+          top:19%;
+          width:46px;
+          height:46px;
+          animation-delay:1.61s;
+          animation-duration:11s;
+        "
+      ></div>
+      <div
+        class="bg-crystal bg-crystal-silver"
+        style="
+          left:72%;
+          top:36%;
+          width:20px;
+          height:20px;
+          animation-delay:1.84s;
+          animation-duration:12s;
+        "
+      ></div>
+  </div>
+
+  <div
+    class="snowfield"
+    aria-hidden="true"
+  >
+    <span
+      class="snow-particle"
+      style="
+        left:11%;
+        width:3px;
+        height:3px;
+        animation-delay:0.13s;
+        animation-duration:11s;
+      "
+    ></span>
+    <span
+      class="snow-particle"
+      style="
+        left:22%;
+        width:4px;
+        height:4px;
+        animation-delay:0.26s;
+        animation-duration:12s;
+      "
+    ></span>
+    <span
+      class="snow-particle"
+      style="
+        left:33%;
+        width:5px;
+        height:5px;
+        animation-delay:0.39s;
+        animation-duration:13s;
+      "
+    ></span>
+    <span
+      class="snow-particle"
+      style="
+        left:44%;
+        width:2px;
+        height:2px;
+        animation-delay:0.52s;
+        animation-duration:14s;
+      "
+    ></span>
+    <span
+      class="snow-particle"
+      style="
+        left:55%;
+        width:3px;
+        height:3px;
+        animation-delay:0.65s;
+        animation-duration:15s;
+      "
+    ></span>
+    <span
+      class="snow-particle"
+      style="
+        left:66%;
+        width:4px;
+        height:4px;
+        animation-delay:0.78s;
+        animation-duration:10s;
+      "
+    ></span>
+    <span
+      class="snow-particle"
+      style="
+        left:77%;
+        width:5px;
+        height:5px;
+        animation-delay:0.91s;
+        animation-duration:11s;
+      "
+    ></span>
+  </div>
+
+  <header
+    class="site-header"
+  >
+    <div
+      class="container nav"
+    >
+      <a
+        class="logo"
+        href="#home"
+      >
+        <span
+          class="logo-mark"
+        >
+          WC
+        </span>
+        <span
+          class="logo-text"
+        >
+          <span
+            class="logo-title"
+          >
+            Wang Che
+          </span>
+          <span
+            class="logo-sub"
+          >
+            Frost Shader Portfolio
+          </span>
+        </span>
+      </a>
+
+      <nav
+        aria-label="Primary"
+      >
+        <ul
+          class="nav-links"
+        >
+          <li>
+            <a
+              href="#home"
+            >
+              Home
+            </a>
+          </li>
+          <li>
+            <a
+              href="#about"
+            >
+              About
+            </a>
+          </li>
+          <li>
+            <a
+              href="#focus"
+            >
+              Focus
+            </a>
+          </li>
+          <li>
+            <a
+              href="#projects"
+            >
+              Projects
+            </a>
+          </li>
+          <li>
+            <a
+              href="#learning"
+            >
+              Learning
+            </a>
+          </li>
+          <li>
+            <a
+              href="#contact"
+            >
+              Contact
+            </a>
+          </li>
+        </ul>
       </nav>
     </div>
   </header>
 
   <main>
-    <section class="hero" id="home">
-      <div class="hero-blur blur-a"></div>
-      <div class="hero-blur blur-b"></div>
-      <div class="hero-blur blur-c"></div>
+    <section
+      class="hero"
+      id="home"
+    >
+      <div
+        class="container hero-grid"
+      >
+        <div
+          data-reveal
+        >
+          <div
+            class="eyebrow"
+          >
+            <span
+              class="eyebrow-dot"
+            ></span>
+            Ice magic / cold sci-fi / shader showcase
+          </div>
 
-      <div class="container hero-grid">
-        <div>
-          <div class="eyebrow">Graphics / Rendering / Creative Systems</div>
-          <h1>
-            Building <span class="gradient">graphics ideas</span> through code, visual thinking, and technical curiosity
+          <h1
+            class="hero-title"
+          >
+            <span
+              class="gradient-line"
+            >
+              Frosted graphics
+            </span>
+            <br />
+            <span
+              class="gradient-line"
+            >
+              imagined like an engine
+            </span>
           </h1>
-          <p>
-            I am a Computer Science student at Rutgers University with a strong interest in
-            computer graphics, rendering, shader programming, and low-level graphics systems.
-            I enjoy learning from the ground up and turning abstract technical ideas into visual,
-            interactive, and implementation-driven work.
+
+          <p
+            class="hero-subtitle"
+          >
+            I am a Rutgers University Computer Science student focused on computer graphics,
+            rendering, shader programming, and low-level graphics systems. I like learning from
+            the ground up and turning technical ideas into visual, interactive, and artistic work.
+            This page is designed like a personal frost engine showcase, blending icy elegance,
+            cold science fiction, and game-tech atmosphere.
           </p>
 
-          <div class="tag-row">
-            <span class="tag">Rutgers University</span>
-            <span class="tag">Computer Graphics</span>
-            <span class="tag">OpenGL</span>
-            <span class="tag">Shaders</span>
-            <span class="tag">Vulkan</span>
-            <span class="tag">Minecraft Shaders</span>
+          <div
+            class="hero-tag-row"
+          >
+            <span
+              class="hero-tag"
+            >
+              Rutgers University
+            </span>
+            <span
+              class="hero-tag"
+            >
+              Computer Graphics
+            </span>
+            <span
+              class="hero-tag"
+            >
+              OpenGL
+            </span>
+            <span
+              class="hero-tag"
+            >
+              Shaders
+            </span>
+            <span
+              class="hero-tag"
+            >
+              Vulkan
+            </span>
+            <span
+              class="hero-tag"
+            >
+              Minecraft Shaders
+            </span>
           </div>
 
-          <div class="hero-buttons">
-            <a class="btn btn-primary" href="#projects">Explore Projects</a>
-            <a class="btn btn-secondary" href="#contact">Contact Me</a>
-          </div>
-        </div>
-
-        <div class="hero-card-stack">
-          <div class="floating-card">
-            <div class="card-top">
-              <span class="dot a"></span>
-              <span class="dot b"></span>
-              <span class="dot c"></span>
-            </div>
-            <div class="card-body">
-              <h3>Current Profile</h3>
-              <div class="scan">> school: Rutgers University</div>
-              <div class="scan">> major: Computer Science</div>
-              <div class="scan">> focus: graphics fundamentals / rendering / shaders</div>
-              <div class="scan">> direction: Vulkan / mini renderer / engine-style projects</div>
-              <div class="scan">> approach: bottom-up and implementation-driven</div>
-            </div>
-          </div>
-
-          <div class="mini-grid">
-            <div class="mini-card">
-              <h4>Now</h4>
-              <p>OpenGL practice, shader exploration, and stronger graphics foundations.</p>
-            </div>
-            <div class="mini-card">
-              <h4>Next</h4>
-              <p>More advanced rendering work, Vulkan, and custom visual systems.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="about">
-      <div class="container">
-        <h2 class="section-title">About <span>Me</span></h2>
-        <p class="section-subtitle">
-          I am most interested in understanding how visual systems work under the hood,
-          from buffers and shader stages to rendering structure, interaction, and creative output.
-        </p>
-
-        <div class="grid-2">
-          <div class="glass-card">
-            <div class="accent-bar"></div>
-            <h3>Who I Am</h3>
-            <p>
-              I am a Rutgers University Computer Science student with a strong interest in computer graphics,
-              rendering, and shader-based visual work.
-            </p>
-            <p>
-              I prefer learning from the bottom up. Instead of only using high-level tools,
-              I like understanding what is happening underneath, including data flow, shader logic,
-              and the graphics pipeline.
-            </p>
-          </div>
-
-          <div class="glass-card">
-            <div class="accent-bar"></div>
-            <h3>What Motivates Me</h3>
-            <p>
-              My goal is to build a strong graphics foundation and gradually grow toward more advanced rendering projects.
-            </p>
-            <p>
-              I am currently focused on OpenGL practice, and I want to keep moving toward Vulkan,
-              mini renderer ideas, and more expressive shader projects.
-            </p>
+          <div
+            class="hero-actions"
+          >
+            <a
+              class="btn btn-primary"
+              href="#projects"
+            >
+              Enter the showcase
+            </a>
+            <a
+              class="btn btn-secondary"
+              href="#contact"
+            >
+              Contact me
+            </a>
           </div>
         </div>
-      </div>
-    </section>
 
-    <section class="section" id="focus">
-      <div class="container">
-        <h2 class="section-title">Technical <span>Focus</span></h2>
-        <p class="section-subtitle">
-          Areas I am actively building through study, experimentation, and project work.
-        </p>
-
-        <div class="grid-4">
-          <div class="tech-card">
-            <div class="tech-icon">GL</div>
-            <h4>OpenGL</h4>
-            <p>Building rendering fundamentals through C++, GLFW, GLAD, and hands-on graphics programming.</p>
-          </div>
-
-          <div class="tech-card">
-            <div class="tech-icon">SL</div>
-            <h4>Shaders</h4>
-            <p>Exploring vertex and fragment shaders, visual logic, and GLSL-based experimentation.</p>
-          </div>
-
-          <div class="tech-card">
-            <div class="tech-icon">C++</div>
-            <h4>C++</h4>
-            <p>Using C++ to support graphics-oriented implementation and lower-level technical understanding.</p>
-          </div>
-
-          <div class="tech-card">
-            <div class="tech-icon">VK</div>
-            <h4>Future Vulkan</h4>
-            <p>Interested in deeper graphics systems, explicit control, and stronger rendering architecture.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="projects">
-      <div class="container">
-        <h2 class="section-title">Selected <span>Projects</span></h2>
-        <p class="section-subtitle">
-          My current graphics work and the directions I want to explore next.
-        </p>
-
-        <div class="projects-grid">
-          <article class="project-card">
-            <div class="project-visual">
-              <div class="project-ribbon">OpenGL Project</div>
-              <div class="project-wave"></div>
+        <div
+          class="hero-panel-stack"
+          data-reveal
+        >
+          <section
+            class="glass-panel tilt-card"
+          >
+            <div
+              class="panel-topbar"
+            >
+              <span
+                class="panel-dot panel-dot-cyan"
+              ></span>
+              <span
+                class="panel-dot panel-dot-violet"
+              ></span>
+              <span
+                class="panel-dot panel-dot-pink"
+              ></span>
             </div>
-            <div class="project-content">
-              <h3>OpenGL Practice</h3>
-              <p>
-                A C++ OpenGL learning project using GLFW and GLAD. This work reflects my current focus on
-                graphics fundamentals, including triangle rendering, shader programming, textures, blending,
-                and depth testing.
+
+            <div
+              class="panel-content"
+            >
+              <h2
+                class="panel-title"
+              >
+                Current profile
+              </h2>
+
+              <p
+                class="scan-line"
+              >
+                > school: Rutgers University
               </p>
+              <p
+                class="scan-line"
+              >
+                > major: Computer Science
+              </p>
+              <p
+                class="scan-line"
+              >
+                > focus: graphics fundamentals / rendering / shaders
+              </p>
+              <p
+                class="scan-line"
+              >
+                > direction: Vulkan / mini renderer / engine-style projects
+              </p>
+              <p
+                class="scan-line"
+              >
+                > style: bottom-up learning, implementation-driven growth
+              </p>
+            </div>
+          </section>
 
-              <div class="small-tags">
-                <span class="small-tag">C++</span>
-                <span class="small-tag">OpenGL</span>
-                <span class="small-tag">GLFW</span>
-                <span class="small-tag">GLAD</span>
+          <div
+            class="hero-mini-grid"
+          >
+            <article
+              class="hero-mini tilt-card"
+            >
+              <h3>
+                Now
+              </h3>
+              <p>
+                OpenGL practice, shader exploration, atmosphere design, and stronger graphics foundations.
+              </p>
+            </article>
+
+            <article
+              class="hero-mini tilt-card"
+            >
+              <h3>
+                Next
+              </h3>
+              <p>
+                More advanced rendering work, Vulkan, mini engine ideas, and artistic shader systems.
+              </p>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section
+      class="section"
+      id="about"
+    >
+      <div
+        class="container"
+      >
+        <header
+          class="section-header"
+          data-reveal
+        >
+          <span
+            class="section-label"
+          >
+            About
+          </span>
+          <h2
+            class="section-title"
+          >
+            A <span class="tint">graphics-focused</span> way of thinking
+          </h2>
+          <p
+            class="section-copy"
+          >
+            I am especially interested in how visual systems work under the hood, from buffers,
+            shader stages, and draw calls to atmosphere, interaction, and aesthetic direction.
+            I prefer understanding systems deeply rather than only using high-level tools.
+          </p>
+        </header>
+
+        <div
+          class="about-grid"
+        >
+          <article
+            class="glass-panel about-card tilt-card"
+            data-reveal
+          >
+            <div
+              class="panel-content"
+            >
+              <div
+                class="accent-rule"
+              ></div>
+              <h3>
+                Who I am
+              </h3>
+              <p>
+                I am a Rutgers University Computer Science student with a strong interest in computer graphics,
+                rendering, and shader-based visual work.
+              </p>
+              <p>
+                I like work that feels both technical and expressive. That is why I am drawn to graphics,
+                where implementation and visual imagination can meet in the same project.
+              </p>
+            </div>
+          </article>
+
+          <article
+            class="glass-panel about-card tilt-card"
+            data-reveal
+          >
+            <div
+              class="panel-content"
+            >
+              <div
+                class="accent-rule"
+              ></div>
+              <h3>
+                What drives me
+              </h3>
+              <p>
+                My goal is to build a strong graphics foundation and gradually grow toward more advanced rendering work.
+              </p>
+              <p>
+                I am currently focused on OpenGL practice and shader studies, and I want to move toward Vulkan,
+                renderer design, and more artistically controlled visual systems.
+              </p>
+            </div>
+          </article>
+        </div>
+
+        <div
+          class="render-pass-grid"
+          data-reveal
+        >
+          <article
+            class="render-pass-card"
+          >
+            <div
+              class="render-pass-line"
+            ></div>
+            <h3>
+              Geometry Pass
+            </h3>
+            <p>
+              Vertex flow, buffer layout, draw calls, and pipeline structure.
+            </p>
+          </article>
+          <article
+            class="render-pass-card"
+          >
+            <div
+              class="render-pass-line"
+            ></div>
+            <h3>
+              Lighting Pass
+            </h3>
+            <p>
+              Future direction toward more advanced illumination and real-time rendering ideas.
+            </p>
+          </article>
+          <article
+            class="render-pass-card"
+          >
+            <div
+              class="render-pass-line"
+            ></div>
+            <h3>
+              Shader Layer
+            </h3>
+            <p>
+              Visual logic, gradient experiments, post-processing mood, and stylized atmosphere.
+            </p>
+          </article>
+          <article
+            class="render-pass-card"
+          >
+            <div
+              class="render-pass-line"
+            ></div>
+            <h3>
+              Research Layer
+            </h3>
+            <p>
+              Learning philosophy, technical curiosity, and long-term graphics growth.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section
+      class="section"
+      id="focus"
+    >
+      <div
+        class="container"
+      >
+        <header
+          class="section-header"
+          data-reveal
+        >
+          <span
+            class="section-label"
+          >
+            Focus
+          </span>
+          <h2
+            class="section-title"
+          >
+            Technical <span class="tint">layers</span> I am building
+          </h2>
+          <p
+            class="section-copy"
+          >
+            These are the current areas shaping my portfolio and long-term graphics direction.
+          </p>
+        </header>
+
+        <div
+          class="tech-grid"
+        >
+          <article
+            class="tech-card"
+          >
+            <div
+              class="tech-card-top"
+            >
+              <div
+                class="tech-glyph"
+              >
+                GL
               </div>
+              <h3>
+                OpenGL
+              </h3>
+            </div>
+            <p>
+              Building rendering fundamentals through C++, GLFW, GLAD, VAO, VBO, shaders, textures, and depth work.
+            </p>
+          </article>
+          <article
+            class="tech-card"
+          >
+            <div
+              class="tech-card-top"
+            >
+              <div
+                class="tech-glyph"
+              >
+                FX
+              </div>
+              <h3>
+                Shader Studies
+              </h3>
+            </div>
+            <p>
+              Exploring vertex and fragment shaders, color transitions, atmosphere, and stylized visual experiments.
+            </p>
+          </article>
+          <article
+            class="tech-card"
+          >
+            <div
+              class="tech-card-top"
+            >
+              <div
+                class="tech-glyph"
+              >
+                C++
+              </div>
+              <h3>
+                C++ Systems
+              </h3>
+            </div>
+            <p>
+              Using low-level programming habits to support graphics understanding, structure, and engine-oriented thinking.
+            </p>
+          </article>
+          <article
+            class="tech-card"
+          >
+            <div
+              class="tech-card-top"
+            >
+              <div
+                class="tech-glyph"
+              >
+                VK
+              </div>
+              <h3>
+                Future Vulkan
+              </h3>
+            </div>
+            <p>
+              Moving toward more explicit graphics control and more advanced renderer architecture.
+            </p>
+          </article>
+          <article
+            class="tech-card"
+          >
+            <div
+              class="tech-card-top"
+            >
+              <div
+                class="tech-glyph"
+              >
+                MC
+              </div>
+              <h3>
+                Minecraft Shaders
+              </h3>
+            </div>
+            <p>
+              Connecting graphics learning to game visuals, mood, lighting, and personal experimentation.
+            </p>
+          </article>
+          <article
+            class="tech-card"
+          >
+            <div
+              class="tech-card-top"
+            >
+              <div
+                class="tech-glyph"
+              >
+                EDU
+              </div>
+              <h3>
+                Interactive Learning
+              </h3>
+            </div>
+            <p>
+              Blending constructivist curiosity with tool-supported collaboration and digital learning design.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
 
-              <a class="project-link" href="https://github.com/GloryKazimierz/opengl" target="_blank">
+    <section
+      class="section"
+      id="projects"
+    >
+      <div
+        class="container"
+      >
+        <header
+          class="section-header"
+          data-reveal
+        >
+          <span
+            class="section-label"
+          >
+            Projects
+          </span>
+          <h2
+            class="section-title"
+          >
+            Selected <span class="tint">frost engine</span> directions
+          </h2>
+          <p
+            class="section-copy"
+          >
+            My current graphics work and the personal project paths I want to explore next.
+          </p>
+        </header>
+
+        <div
+          class="projects-grid"
+        >
+          <article
+            class="project-card project-card-1"
+          >
+            <div
+              class="project-visual project-visual-1"
+            >
+              <div
+                class="project-aura"
+              ></div>
+              <div
+                class="project-badge"
+              >
+                Live foundation build
+              </div>
+              <div
+                class="project-scan"
+              ></div>
+              <svg
+                class="project-ice-svg"
+                viewBox="0 0 600 260"
+                aria-hidden="true"
+              >
+                <defs>
+                  <linearGradient
+                    id="iceGrad1"
+                    x1="0%"
+                    y1="0%"
+                    x2="100%"
+                    y2="100%"
+                  >
+                    <stop
+                      offset="0%"
+                      stop-color="rgba(190,245,255,0.75)"
+                    ></stop>
+                    <stop
+                      offset="50%"
+                      stop-color="rgba(184,160,255,0.45)"
+                    ></stop>
+                    <stop
+                      offset="100%"
+                      stop-color="rgba(255,170,220,0.28)"
+                    ></stop>
+                  </linearGradient>
+                </defs>
+                <path
+                  d="M20,200 L110,90 L180,170 L250,40 L330,120 L410,70 L520,170 L585,80"
+                  fill="none"
+                  stroke="url(#iceGrad1)"
+                  stroke-width="3"
+                  stroke-linecap="round"
+                ></path>
+                <path
+                  d="M85,235 L150,150 L215,210 L285,125 L370,195 L450,120 L570,225"
+                  fill="none"
+                  stroke="rgba(255,255,255,0.32)"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                ></path>
+              </svg>
+            </div>
+            <div
+              class="project-content"
+            >
+              <h3>
+                OpenGL Practice
+              </h3>
+              <p>
+                Current graphics foundation work focused on triangle rendering, shaders, textures, blending, and depth testing.
+              </p>
+              <div
+                class="mini-tag-row"
+              >
+                <span
+                  class="mini-tag"
+                >
+                  C++
+                </span>
+                <span
+                  class="mini-tag"
+                >
+                  OpenGL
+                </span>
+                <span
+                  class="mini-tag"
+                >
+                  GLFW
+                </span>
+                <span
+                  class="mini-tag"
+                >
+                  GLAD
+                </span>
+                <span
+                  class="mini-tag"
+                >
+                  Shaders
+                </span>
+              </div>
+              <a
+                class="project-link"
+                href="https://github.com/GloryKazimierz/opengl"
+                target="_blank"
+              >
                 View GitHub Repo
               </a>
             </div>
           </article>
-
-          <article class="project-card">
-            <div class="project-visual">
-              <div class="project-ribbon">Future Renderer</div>
-              <div class="project-wave"></div>
-            </div>
-            <div class="project-content">
-              <h3>Future Vulkan Renderer</h3>
-              <p>
-                I want to move beyond OpenGL into lower-level rendering work.
-                This future project represents my interest in modern graphics systems,
-                more explicit control, and a stronger rendering-oriented portfolio.
-              </p>
-
-              <div class="small-tags">
-                <span class="small-tag">Vulkan</span>
-                <span class="small-tag">Renderer</span>
-                <span class="small-tag">Planned</span>
+          <article
+            class="project-card project-card-2"
+          >
+            <div
+              class="project-visual project-visual-2"
+            >
+              <div
+                class="project-aura"
+              ></div>
+              <div
+                class="project-badge"
+              >
+                Research direction
               </div>
-
-              <span class="project-link">Currently preparing through fundamentals</span>
+              <div
+                class="project-scan"
+              ></div>
+              <svg
+                class="project-ice-svg"
+                viewBox="0 0 600 260"
+                aria-hidden="true"
+              >
+                <defs>
+                  <linearGradient
+                    id="iceGrad2"
+                    x1="0%"
+                    y1="0%"
+                    x2="100%"
+                    y2="100%"
+                  >
+                    <stop
+                      offset="0%"
+                      stop-color="rgba(190,245,255,0.75)"
+                    ></stop>
+                    <stop
+                      offset="50%"
+                      stop-color="rgba(184,160,255,0.45)"
+                    ></stop>
+                    <stop
+                      offset="100%"
+                      stop-color="rgba(255,170,220,0.28)"
+                    ></stop>
+                  </linearGradient>
+                </defs>
+                <path
+                  d="M20,200 L110,90 L180,170 L250,40 L330,120 L410,70 L520,170 L585,80"
+                  fill="none"
+                  stroke="url(#iceGrad2)"
+                  stroke-width="3"
+                  stroke-linecap="round"
+                ></path>
+                <path
+                  d="M85,235 L150,150 L215,210 L285,125 L370,195 L450,120 L570,225"
+                  fill="none"
+                  stroke="rgba(255,255,255,0.32)"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                ></path>
+              </svg>
+            </div>
+            <div
+              class="project-content"
+            >
+              <h3>
+                Future Vulkan Renderer
+              </h3>
+              <p>
+                A future renderer path centered on lower-level graphics thinking, explicit control, and more advanced pipeline design.
+              </p>
+              <div
+                class="mini-tag-row"
+              >
+                <span
+                  class="mini-tag"
+                >
+                  Vulkan
+                </span>
+                <span
+                  class="mini-tag"
+                >
+                  Renderer
+                </span>
+                <span
+                  class="mini-tag"
+                >
+                  Planned
+                </span>
+                <span
+                  class="mini-tag"
+                >
+                  Graphics Architecture
+                </span>
+              </div>
+              <span
+                class="project-link project-link-muted"
+              >
+                Research direction
+              </span>
             </div>
           </article>
-
-          <article class="project-card">
-            <div class="project-visual">
-              <div class="project-ribbon">Shader Exploration</div>
-              <div class="project-wave"></div>
-            </div>
-            <div class="project-content">
-              <h3>Minecraft Shader Project</h3>
-              <p>
-                I am also interested in creating custom Minecraft shader effects.
-                This project connects graphics learning with lighting, atmosphere,
-                post-processing, and visual experimentation in a game context.
-              </p>
-
-              <div class="small-tags">
-                <span class="small-tag">GLSL</span>
-                <span class="small-tag">Minecraft</span>
-                <span class="small-tag">Shaders</span>
+          <article
+            class="project-card project-card-3"
+          >
+            <div
+              class="project-visual project-visual-3"
+            >
+              <div
+                class="project-aura"
+              ></div>
+              <div
+                class="project-badge"
+              >
+                Creative experiment
               </div>
-
-              <span class="project-link">Planned personal graphics project</span>
+              <div
+                class="project-scan"
+              ></div>
+              <svg
+                class="project-ice-svg"
+                viewBox="0 0 600 260"
+                aria-hidden="true"
+              >
+                <defs>
+                  <linearGradient
+                    id="iceGrad3"
+                    x1="0%"
+                    y1="0%"
+                    x2="100%"
+                    y2="100%"
+                  >
+                    <stop
+                      offset="0%"
+                      stop-color="rgba(190,245,255,0.75)"
+                    ></stop>
+                    <stop
+                      offset="50%"
+                      stop-color="rgba(184,160,255,0.45)"
+                    ></stop>
+                    <stop
+                      offset="100%"
+                      stop-color="rgba(255,170,220,0.28)"
+                    ></stop>
+                  </linearGradient>
+                </defs>
+                <path
+                  d="M20,200 L110,90 L180,170 L250,40 L330,120 L410,70 L520,170 L585,80"
+                  fill="none"
+                  stroke="url(#iceGrad3)"
+                  stroke-width="3"
+                  stroke-linecap="round"
+                ></path>
+                <path
+                  d="M85,235 L150,150 L215,210 L285,125 L370,195 L450,120 L570,225"
+                  fill="none"
+                  stroke="rgba(255,255,255,0.32)"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                ></path>
+              </svg>
+            </div>
+            <div
+              class="project-content"
+            >
+              <h3>
+                Minecraft Shader Project
+              </h3>
+              <p>
+                A stylized visual exploration path for lighting, atmosphere, post-processing, and icy or magical environment moods.
+              </p>
+              <div
+                class="mini-tag-row"
+              >
+                <span
+                  class="mini-tag"
+                >
+                  GLSL
+                </span>
+                <span
+                  class="mini-tag"
+                >
+                  Minecraft
+                </span>
+                <span
+                  class="mini-tag"
+                >
+                  Shaderpack
+                </span>
+                <span
+                  class="mini-tag"
+                >
+                  Visual Mood
+                </span>
+              </div>
+              <span
+                class="project-link project-link-muted"
+              >
+                Creative experiment
+              </span>
             </div>
           </article>
         </div>
       </div>
     </section>
 
-    <section class="section" id="learning">
-      <div class="container">
-        <h2 class="section-title">Learning <span>Philosophy</span></h2>
-        <p class="section-subtitle">
-          A few ideas that shape how I learn, collaborate, and think about digital environments.
-        </p>
+    <section
+      class="section"
+      id="learning"
+    >
+      <div
+        class="container"
+      >
+        <header
+          class="section-header"
+          data-reveal
+        >
+          <span
+            class="section-label"
+          >
+            Learning
+          </span>
+          <h2
+            class="section-title"
+          >
+            A more <span class="tint">thoughtful</span> learning philosophy
+          </h2>
+          <p
+            class="section-copy"
+          >
+            I also care about how people learn, collaborate, and build understanding in digital spaces.
+          </p>
+        </header>
 
-        <div class="grid-3">
-          <div class="glass-card">
-            <div class="accent-bar"></div>
-            <h3>Constructivist Preference</h3>
+        <div
+          class="philosophy-grid"
+        >
+          <article
+            class="philosophy-card"
+          >
+            <div
+              class="frost-rule"
+            ></div>
+            <h3>
+              Constructivist Preference
+            </h3>
             <p>
-              I personally prefer a constructivist learning approach because it encourages active engagement,
-              exploration, and critical thinking.
+              I prefer learning environments that encourage active engagement, exploration, and critical thinking, while still valuing blended approaches when they help deeper understanding.
             </p>
+          </article>
+          <article
+            class="philosophy-card"
+          >
+            <div
+              class="frost-rule"
+            ></div>
+            <h3>
+              Cognition and Higher Education
+            </h3>
             <p>
-              I also think blending multiple theories often works better than relying on only one framework.
+              I believe constructivism and cognitivism work especially well together in higher education because doing and organizing knowledge both matter.
             </p>
-          </div>
-
-          <div class="glass-card">
-            <div class="accent-bar"></div>
-            <h3>Cognition and Higher Education</h3>
+          </article>
+          <article
+            class="philosophy-card"
+          >
+            <div
+              class="frost-rule"
+            ></div>
+            <h3>
+              K–12 Reflection
+            </h3>
             <p>
-              I believe a combination of constructivism and cognitivism works especially well in higher education.
+              My earlier education felt more behaviorist in elementary school and more constructivist in middle and high school, which shaped how I now think about learning.
             </p>
+          </article>
+          <article
+            class="philosophy-card"
+          >
+            <div
+              class="frost-rule"
+            ></div>
+            <h3>
+              Online and Blended Learning
+            </h3>
             <p>
-              Good learning is not only about doing. It is also about organizing knowledge and building mental models.
+              I have experience with online or blended learning and believe strong digital structure can still support meaningful collaboration and growth.
             </p>
-          </div>
-
-          <div class="glass-card">
-            <div class="accent-bar"></div>
-            <h3>Growth Through Different Stages</h3>
+          </article>
+          <article
+            class="philosophy-card"
+          >
+            <div
+              class="frost-rule"
+            ></div>
+            <h3>
+              Technology Literacy
+            </h3>
             <p>
-              Looking back, I feel my K-12 learning experience was shaped by both behaviorism and constructivism.
+              I participated in activities related to Technology Literacy, especially collaborative digital tools used to access, record, and share viewpoints.
             </p>
+          </article>
+          <article
+            class="philosophy-card"
+          >
+            <div
+              class="frost-rule"
+            ></div>
+            <h3>
+              Digital Collaboration
+            </h3>
             <p>
-              Behaviorism felt more visible in elementary school, while later learning involved more independence and active knowledge building.
+              I believe Zoom, Google Workspace, Microsoft tools, and Discord can support strong online learning when used thoughtfully.
             </p>
-          </div>
-
-          <div class="glass-card">
-            <div class="accent-bar"></div>
-            <h3>Online and Blended Learning</h3>
-            <p>
-              I have experience with online or blended learning courses at Rutgers and similar academic settings.
-            </p>
-            <p>
-              I believe meaningful student learning can be supported online when structure and collaboration are designed well.
-            </p>
-          </div>
-
-          <div class="glass-card">
-            <div class="accent-bar"></div>
-            <h3>Technology Literacy</h3>
-            <p>
-              I participated in activities connected to Technology Literacy, especially work involving collaborative digital tools for accessing,
-              recording, and sharing viewpoints.
-            </p>
-          </div>
-
-          <div class="glass-card">
-            <div class="accent-bar"></div>
-            <h3>Digital Collaboration Tools</h3>
-            <p>
-              I believe Technology Literacy learning can be supported online through tools such as Zoom,
-              Google Workspace, Microsoft tools, and Discord.
-            </p>
-          </div>
+          </article>
         </div>
       </div>
     </section>
 
-    <section class="section" id="contact">
-      <div class="container">
-        <h2 class="section-title">Contact <span>Info</span></h2>
-        <p class="section-subtitle">
-          Feel free to connect with me or explore my work.
-        </p>
+    <section
+      class="section"
+      id="contact"
+    >
+      <div
+        class="container"
+      >
+        <header
+          class="section-header"
+          data-reveal
+        >
+          <span
+            class="section-label"
+          >
+            Contact
+          </span>
+          <h2
+            class="section-title"
+          >
+            Connect through the <span class="tint">ice light</span>
+          </h2>
+          <p
+            class="section-copy"
+          >
+            Feel free to explore my work and reach out.
+          </p>
+        </header>
 
-        <div class="grid-3">
-          <div class="glass-card contact-card">
-            <div class="accent-bar"></div>
-            <h4>Email</h4>
-            <a href="mailto:wang1610909540@gmail.com">wang1610909540@gmail.com</a>
-          </div>
+        <div
+          class="contact-grid"
+        >
+          <article
+            class="glass-panel contact-card tilt-card"
+            data-reveal
+          >
+            <div
+              class="panel-content"
+            >
+              <div
+                class="accent-rule"
+              ></div>
+              <h3>
+                Email
+              </h3>
+              <a
+                href="mailto:wang1610909540@gmail.com"
+              >
+                wang1610909540@gmail.com
+              </a>
+            </div>
+          </article>
 
-          <div class="glass-card contact-card">
-            <div class="accent-bar"></div>
-            <h4>LinkedIn</h4>
-            <a href="https://www.linkedin.com/in/澈-王-143a95293" target="_blank">
-              www.linkedin.com/in/澈-王-143a95293
-            </a>
-          </div>
+          <article
+            class="glass-panel contact-card tilt-card"
+            data-reveal
+          >
+            <div
+              class="panel-content"
+            >
+              <div
+                class="accent-rule"
+              ></div>
+              <h3>
+                LinkedIn
+              </h3>
+              <a
+                href="https://www.linkedin.com/in/%E6%BE%88-%E7%8E%8B-143a95293"
+                target="_blank"
+              >
+                linkedin.com/in/澈-王-143a95293
+              </a>
+            </div>
+          </article>
 
-          <div class="glass-card contact-card">
-            <div class="accent-bar"></div>
-            <h4>GitHub</h4>
-            <a href="https://github.com/GloryKazimierz" target="_blank">
-              github.com/GloryKazimierz
-            </a>
-          </div>
+          <article
+            class="glass-panel contact-card tilt-card"
+            data-reveal
+          >
+            <div
+              class="panel-content"
+            >
+              <div
+                class="accent-rule"
+              ></div>
+              <h3>
+                GitHub
+              </h3>
+              <a
+                href="https://github.com/GloryKazimierz"
+                target="_blank"
+              >
+                github.com/GloryKazimierz
+              </a>
+            </div>
+          </article>
         </div>
       </div>
     </section>
   </main>
 
-  <footer>
-    <div class="container">
-      <p>© 2026 Wang Che — Graphics, rendering, shaders, and creative learning systems.</p>
+  <footer
+    class="footer"
+  >
+    <div
+      class="container"
+    >
+      <p>
+        © 2026 Wang Che — graphics, rendering, shaders, icy interfaces, and creative technical curiosity.
+      </p>
     </div>
   </footer>
+
+  <script>
+    (() =>
+    {
+      const root =
+        document.documentElement;
+
+      const body =
+        document.body;
+
+      const glow =
+        document.querySelector('[data-cursor-glow]');
+
+      const trailLayer =
+        document.querySelector('[data-trail-layer]');
+
+      const cards =
+        document.querySelectorAll('.tilt-card');
+
+      let mouseX =
+        window.innerWidth * 0.5;
+      let mouseY =
+        window.innerHeight * 0.5;
+      let glowX =
+        mouseX;
+      let glowY =
+        mouseY;
+
+      const sparks =
+        [];
+
+      for (let i = 0; i < 28; i += 1)
+      {
+        const spark =
+          document.createElement('span');
+
+        spark.className =
+          'trail-ice';
+
+        spark.style.left =
+          '-100px';
+
+        spark.style.top =
+          '-100px';
+
+        trailLayer.appendChild(spark);
+
+        sparks.push(
+          {
+            el: spark,
+            x: mouseX,
+            y: mouseY,
+            life: 0
+          }
+        );
+      }
+
+      const onMove =
+        (event) =>
+        {
+          mouseX =
+            event.clientX;
+          mouseY =
+            event.clientY;
+
+          root.style.setProperty(
+            '--mouse-x',
+            mouseX + 'px'
+          );
+
+          root.style.setProperty(
+            '--mouse-y',
+            mouseY + 'px'
+          );
+
+          const spark =
+            sparks.shift();
+
+          spark.x =
+            mouseX;
+          spark.y =
+            mouseY;
+          spark.life =
+            1;
+
+          sparks.push(spark);
+        };
+
+      window.addEventListener(
+        'mousemove',
+        onMove
+      );
+
+      window.addEventListener(
+        'touchmove',
+        (event) =>
+        {
+          const touch =
+            event.touches[0];
+
+          if (!touch)
+          {
+            return;
+          }
+
+          onMove(
+            {
+              clientX: touch.clientX,
+              clientY: touch.clientY
+            }
+          );
+        },
+        {
+          passive: true
+        }
+      );
+
+      const animateGlow =
+        () =>
+        {
+          glowX +=
+            (mouseX - glowX) * 0.09;
+          glowY +=
+            (mouseY - glowY) * 0.09;
+
+          glow.style.transform =
+            `translate(${glowX - 180}px, ${glowY - 180}px)`;
+
+          sparks.forEach(
+            (spark, index) =>
+            {
+              spark.life *=
+                0.92;
+
+              spark.el.style.transform =
+                `translate(${spark.x - index * 1.5}px, ${spark.y - index * 1.5}px) scale(${0.4 + spark.life * 1.6})`;
+
+              spark.el.style.opacity =
+                spark.life.toFixed(3);
+            }
+          );
+
+          requestAnimationFrame(
+            animateGlow
+          );
+        };
+
+      animateGlow();
+
+      cards.forEach(
+        (card) =>
+        {
+          card.addEventListener(
+            'mousemove',
+            (event) =>
+            {
+              const rect =
+                card.getBoundingClientRect();
+
+              const px =
+                (event.clientX - rect.left) / rect.width;
+              const py =
+                (event.clientY - rect.top) / rect.height;
+
+              const rotateY =
+                (px - 0.5) * 10;
+              const rotateX =
+                (0.5 - py) * 10;
+
+              card.style.transform =
+                `perspective(1200px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-6px)`;
+
+              card.style.setProperty(
+                '--shine-x',
+                `${px * 100}%`
+              );
+
+              card.style.setProperty(
+                '--shine-y',
+                `${py * 100}%`
+              );
+            }
+          );
+
+          card.addEventListener(
+            'mouseleave',
+            () =>
+            {
+              card.style.transform =
+                '';
+              card.style.setProperty(
+                '--shine-x',
+                '50%'
+              );
+              card.style.setProperty(
+                '--shine-y',
+                '50%'
+              );
+            }
+          );
+        }
+      );
+
+      const revealTargets =
+        document.querySelectorAll('[data-reveal]');
+
+      const io =
+        new IntersectionObserver(
+          (entries) =>
+          {
+            entries.forEach(
+              (entry) =>
+              {
+                if (entry.isIntersecting)
+                {
+                  entry.target.classList.add(
+                    'is-visible'
+                  );
+                }
+              }
+            );
+          },
+          {
+            threshold: 0.18
+          }
+        );
+
+      revealTargets.forEach(
+        (target) =>
+        {
+          io.observe(
+            target
+          );
+        }
+      );
+
+      const ambientCanvas =
+        document.querySelector('[data-ambient-canvas]');
+
+      const ctx =
+        ambientCanvas.getContext('2d');
+
+      const resizeCanvas =
+        () =>
+        {
+          ambientCanvas.width =
+            window.innerWidth * Math.min(window.devicePixelRatio, 2);
+          ambientCanvas.height =
+            window.innerHeight * Math.min(window.devicePixelRatio, 2);
+          ambientCanvas.style.width =
+            window.innerWidth + 'px';
+          ambientCanvas.style.height =
+            window.innerHeight + 'px';
+          ctx.setTransform(1, 0, 0, 1, 0, 0);
+          ctx.scale(
+            Math.min(window.devicePixelRatio, 2),
+            Math.min(window.devicePixelRatio, 2)
+          );
+        };
+
+      resizeCanvas();
+
+      window.addEventListener(
+        'resize',
+        resizeCanvas
+      );
+
+      const nodes =
+        Array.from(
+          {
+            length: 24
+          },
+          (_, index) =>
+          ({
+            x:
+              Math.random() * window.innerWidth,
+            y:
+              Math.random() * window.innerHeight,
+            vx:
+              (Math.random() - 0.5) * 0.4,
+            vy:
+              (Math.random() - 0.5) * 0.4,
+            r:
+              1.5 + Math.random() * 3,
+            hue:
+              [192, 215, 285, 325, 45][index % 5]
+          })
+        );
+
+      const drawAmbient =
+        () =>
+        {
+          ctx.clearRect(
+            0,
+            0,
+            window.innerWidth,
+            window.innerHeight
+          );
+
+          nodes.forEach(
+            (n) =>
+            {
+              n.x += n.vx;
+              n.y += n.vy;
+
+              if (n.x < -40) n.x = window.innerWidth + 40;
+              if (n.x > window.innerWidth + 40) n.x = -40;
+              if (n.y < -40) n.y = window.innerHeight + 40;
+              if (n.y > window.innerHeight + 40) n.y = -40;
+            }
+          );
+
+          for (let i = 0; i < nodes.length; i += 1)
+          {
+            const a =
+              nodes[i];
+
+            for (let j = i + 1; j < nodes.length; j += 1)
+            {
+              const b =
+                nodes[j];
+
+              const dx =
+                a.x - b.x;
+              const dy =
+                a.y - b.y;
+              const d =
+                Math.hypot(dx, dy);
+
+              if (d < 190)
+              {
+                ctx.beginPath();
+                ctx.strokeStyle =
+                  `hsla(${a.hue}, 100%, 82%, ${0.10 * (1 - d / 190)})`;
+                ctx.lineWidth =
+                  1;
+                ctx.moveTo(a.x, a.y);
+                ctx.lineTo(b.x, b.y);
+                ctx.stroke();
+              }
+            }
+          }
+
+          nodes.forEach(
+            (n) =>
+            {
+              const g =
+                ctx.createRadialGradient(
+                  n.x,
+                  n.y,
+                  0,
+                  n.x,
+                  n.y,
+                  28
+                );
+
+              g.addColorStop(
+                0,
+                `hsla(${n.hue}, 100%, 82%, 0.65)`
+              );
+              g.addColorStop(
+                1,
+                `hsla(${n.hue}, 100%, 82%, 0)`
+              );
+
+              ctx.beginPath();
+              ctx.fillStyle =
+                g;
+              ctx.arc(
+                n.x,
+                n.y,
+                28,
+                0,
+                Math.PI * 2
+              );
+              ctx.fill();
+            }
+          );
+
+          requestAnimationFrame(
+            drawAmbient
+          );
+        };
+
+      drawAmbient();
+    })();
+  </script>
+
 </body>
 </html>
